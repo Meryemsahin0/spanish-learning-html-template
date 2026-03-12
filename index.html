@@ -419,7 +419,7 @@ footer em{color:var(--red);font-style:italic;font-family:var(--fhead);font-size:
   </section>
   <section class="sec">
     <div class="wrap">
-      <div class="sec-lbl">// son yazılar</div>
+   
       <h2 class="sec-ttl">Günlükten</h2>
       <div class="g3">
         <div v-for="b in pubBlogs.slice(-3)" :key="b.id" class="bcard" @click="openBlogModal(b)">
@@ -439,7 +439,7 @@ footer em{color:var(--red);font-style:italic;font-family:var(--fhead);font-size:
   </section>
   <section class="sec" style="background:var(--surface)">
     <div class="wrap">
-      <div class="sec-lbl">// kültür</div>
+   
       <h2 class="sec-ttl">Cultura Española</h2>
       <div class="g3">
         <div v-for="c in st.culture.slice(0,3)" :key="c.id" class="culcard">
@@ -457,7 +457,7 @@ footer em{color:var(--red);font-style:italic;font-family:var(--fhead);font-size:
 <div v-if="pg==='roadmap' && !isAdmin" class="page">
   <section class="sec">
     <div class="wrap">
-      <div class="sec-lbl">// seviyeler</div>
+   
       <h2 class="sec-ttl">Öğrenme Yol Haritası</h2>
       <p class="sec-desc">Her seviyeye tıkla – o seviyede ne öğrendiğini gör! 👆</p>
       <div class="g2">
