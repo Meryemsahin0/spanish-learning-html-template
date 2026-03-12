@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Español – A1'den B2'ye</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,500&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+[v-cloak] { display: none !important; }
+:root {
+  --bg:#fdf7ef;--surface:#fff9f3;--card:#ffffff;
+  --border:#ecddd0;--border2:#f0e4d6;
+  --text:#1e0f05;--text2:#4a3020;--muted:#8a6f58;--muted2:#b8a090;
+  --red:#c0392b;--redh:#a93226;--reds:rgba(192,57,43,0.08);
+  --yellow:#e8a020;--yellows:rgba(232,160,32,0.14);
+  --green:#27a060;--greens:rgba(39,160,96,0.1);
+  --fhead:'Playfair Display',serif;--fbody:'Outfit',sans-serif;--fmono:'DM Mono',monospace;
+  --rsm:8px;--rmd:14px;--rlg:20px;--rxl:28px;--rfull:999px;
+  --shs:0 2px 8px rgba(0,0,0,.06);--shm:0 6px 24px rgba(0,0,0,.09);--shl:0 16px 48px rgba(0,0,0,.11);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--fbody);font-weight:300;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px}
+button{cursor:pointer;font-family:var(--fbody)}
+input,textarea,select{font-family:var(--fbody)}
+
+.fade-enter-active,.fade-leave-active{transition:opacity .2s,transform .2s}
+.fade-enter-from{opacity:0;transform:translateY(8px)}
+.fade-leave-to{opacity:0;transform:translateY(-8px)}
+
+/* TOAST */
+.toast-wrap{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast{background:var(--text);color:#fff;padding:12px 20px;border-radius:var(--rmd);font-size:.84rem;font-weight:500;display:flex;align-items:center;gap:8px;box-shadow:var(--shl);animation:tIn .3s ease}
+.toast.success{background:var(--green)}.toast.error{background:var(--red)}.toast.info{background:#2471a3}
+@keyframes tIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+
+/* NAV – user */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;background:rgba(253,247,239,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 48px;gap:32px}
+.nav-logo{font-family:var(--fhead);font-style:italic;font-size:1.2rem;color:var(--red);cursor:pointer;border:none;background:none;white-space:nowrap}
+.nav-links{display:flex;gap:2px;flex:1;flex-wrap:wrap}
+.nav-link{background:none;border:none;color:var(--muted);font-size:.79rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;padding:7px 11px;border-radius:var(--rsm);transition:color .18s,background .18s}
+.nav-link:hover{color:var(--red);background:var(--reds)}
+.nav-link.active{color:var(--red);background:var(--reds);font-weight:600}
+.nav-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+/* NAV – admin (no public links) */
+.adm-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;background:#1e0f05;display:flex;align-items:center;padding:0 32px;gap:16px}
+.adm-nav-logo{font-family:var(--fhead);font-style:italic;font-size:1.1rem;color:var(--yellow);border:none;background:none;cursor:pointer}
+.adm-badge{background:var(--red);color:#fff;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:var(--rfull);font-family:var(--fmono)}
+.adm-nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:11px 24px;border-radius:var(--rfull);font-size:.87rem;font-weight:600;border:none;transition:all .18s;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn-primary{background:var(--red);color:#fff}
+.btn-primary:hover{background:var(--redh);transform:translateY(-1px);box-shadow:0 6px 20px rgba(192,57,43,.28)}
+.btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--border)}
+.btn-outline:hover{border-color:var(--red);color:var(--red)}
+.btn-ghost{background:var(--reds);color:var(--red)}
+.btn-ghost:hover{background:rgba(192,57,43,.15)}
+.btn-danger{background:rgba(192,57,43,.1);color:var(--red)}
+.btn-danger:hover{background:var(--red);color:#fff}
+.btn-success{background:var(--greens);color:var(--green)}
+.btn-success:hover{background:var(--green);color:#fff}
+.btn-sm{padding:7px 16px;font-size:.78rem}
+.btn:disabled,.btn.dis{opacity:.45;cursor:not-allowed;pointer-events:none}
+
+/* INPUTS */
+.field{display:flex;flex-direction:column;gap:6px}
+.field-label{font-size:.74rem;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.inp{width:100%;background:var(--card);border:1.5px solid var(--border2);border-radius:var(--rmd);padding:12px 16px;font-size:.9rem;color:var(--text);outline:none;transition:border-color .18s,box-shadow .18s}
+.inp:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.1)}
+.inp.err{border-color:var(--red)}
+.inp::placeholder{color:var(--muted2)}
+textarea.inp{resize:vertical;min-height:90px;line-height:1.6}
+.field-err{font-size:.74rem;color:var(--red);font-weight:500}
+
+/* CHIP */
+.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:var(--rfull);font-size:.7rem;font-weight:700;font-family:var(--fmono);letter-spacing:.05em}
+.chip-red{background:var(--reds);color:var(--red)}
+.chip-yellow{background:var(--yellows);color:var(--yellow)}
+.chip-green{background:var(--greens);color:var(--green)}
+.chip-muted{background:rgba(0,0,0,.05);color:var(--muted)}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--rlg);padding:32px;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shm)}
+.card-flat{background:var(--card);border:1px solid var(--border);border-radius:var(--rlg);padding:32px}
+
+/* LAYOUT */
+.wrap{max-width:1160px;margin:0 auto;padding:0 48px}
+.sec{padding:80px 0}.sec-sm{padding:56px 0}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.ga{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+.g2i{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.fxb{display:flex;align-items:center;justify-content:space-between}
+
+/* SECTION HEADER */
+.sec-lbl{font-family:var(--fmono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.sec-ttl{font-family:var(--fhead);font-size:clamp(1.8rem,3.5vw,2.8rem);color:var(--text);line-height:1.15;margin-bottom:12px}
+.sec-desc{color:var(--muted);font-size:.94rem;line-height:1.7;max-width:520px;margin-bottom:48px}
+
+/* PROGRESS */
+.pbar{height:6px;background:var(--border2);border-radius:3px;overflow:hidden;margin-top:14px}
+.pfill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--red),var(--yellow));transition:width 1s ease}
+.pfill-g{background:var(--green)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:96px 48px 64px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 15% 50%,rgba(192,57,43,.06) 0%,transparent 70%),radial-gradient(ellipse 45% 65% at 85% 25%,rgba(232,160,32,.05) 0%,transparent 70%)}
+.hero-pat{position:absolute;inset:0;opacity:.025;background-image:repeating-linear-gradient(45deg,var(--red) 0,var(--red) 1px,transparent 0,transparent 14px);background-size:14px 14px}
+.hero-con{position:relative;z-index:1;max-width:680px}
+.hero-flags{font-size:2.2rem;letter-spacing:6px;margin-bottom:24px;display:block}
+.hero-ttl{font-family:var(--fhead);font-size:clamp(3rem,7vw,5.5rem);line-height:1.05;margin-bottom:16px;color:var(--text)}
+.hero-ttl em{color:var(--red);font-style:italic}
+.hero-sub{font-size:1.05rem;color:var(--muted);line-height:1.75;margin-bottom:32px;max-width:480px}
+.lvl-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.lvl{padding:8px 20px;border-radius:var(--rfull);font-family:var(--fmono);font-size:.82rem}
+.lvl-done{background:var(--red);color:#fff}
+.lvl-now{background:var(--yellow);color:var(--text);font-weight:700;animation:plvl 2s ease-in-out infinite}
+.lvl-up{background:transparent;color:var(--muted);border:1.5px solid var(--border)}
+.lvl-arr{color:var(--muted2);font-size:.85rem}
+@keyframes plvl{0%,100%{box-shadow:0 0 0 0 rgba(232,160,32,.4)}50%{box-shadow:0 0 0 8px rgba(232,160,32,0)}}
+
+/* ROADMAP CARDS – clickable */
+.rmap{background:var(--card);border:1px solid var(--border);border-radius:var(--rxl);padding:28px;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;position:relative;overflow:hidden}
+.rmap::after{content:'Detayları Gör →';position:absolute;bottom:16px;right:20px;font-size:.74rem;color:var(--muted);font-weight:600;opacity:0;transition:opacity .2s}
+.rmap:hover{transform:translateY(-4px);box-shadow:var(--shm)}
+.rmap:hover::after{opacity:1}
+.rmap.done{border-color:rgba(192,57,43,.25)}
+.rmap.done:hover{border-color:var(--red)}
+.rmap.now{border-color:var(--yellow);box-shadow:0 0 0 3px var(--yellows)}
+.rmap.now:hover{border-color:var(--yellow)}
+.rmap-lvl{font-family:var(--fhead);font-size:2.4rem;font-weight:800;color:var(--red)}
+.rmap-name{font-size:.95rem;font-weight:600;margin:8px 0 10px}
+.rmap-desc{color:var(--muted);font-size:.84rem;line-height:1.65;margin-bottom:16px}
+
+/* LEVEL DETAIL MODAL */
+.lvl-modal-body{line-height:1.75;color:var(--text2);font-size:.92rem}
+.lvl-topic{background:var(--bg);border-radius:var(--rmd);padding:16px 20px;margin-bottom:10px}
+.lvl-topic-title{font-weight:700;font-size:.9rem;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.lvl-topic-desc{color:var(--muted);font-size:.84rem;line-height:1.6}
+.lvl-timeline{border-left:2px solid var(--border);padding-left:20px;margin-top:16px}
+.lvl-tl-item{position:relative;margin-bottom:16px;padding-bottom:4px}
+.lvl-tl-item::before{content:'';position:absolute;left:-25px;top:6px;width:8px;height:8px;border-radius:50%;background:var(--red)}
+
+/* VOCAB */
+.vtab{background:transparent;border:1.5px solid var(--border);border-radius:var(--rfull);padding:7px 18px;font-size:.8rem;font-weight:500;color:var(--muted);transition:all .18s}
+.vtab:hover{border-color:var(--red);color:var(--red)}
+.vtab.on{background:var(--red);border-color:var(--red);color:#fff}
+.vcard{background:var(--card);border:1px solid var(--border);border-radius:var(--rlg);padding:20px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.vcard::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--red);transform:scaleX(0);transition:transform .2s}
+.vcard:hover::after{transform:scaleX(1)}
+.vcard:hover{transform:translateY(-3px);box-shadow:var(--shs)}
+.ves{font-family:var(--fhead);font-style:italic;font-size:1.2rem;color:var(--red);margin-bottom:4px}
+.vtr{font-size:.82rem;color:var(--muted);margin-bottom:10px}
+.vex{font-size:.78rem;color:var(--muted);font-style:italic;line-height:1.55;display:none}
+.vcard.flip .vtr{display:none}.vcard.flip .vex{display:block}
+
+/* BLOG */
+.bcard{background:var(--card);border:1px solid var(--border);border-radius:var(--rxl);overflow:hidden;cursor:pointer;transition:all .2s}
+.bcard:hover{transform:translateY(-4px);box-shadow:var(--shm)}
+.bcard-body{padding:20px}
+.bdate{font-family:var(--fmono);font-size:.72rem;color:var(--muted);margin-bottom:8px}
+.bttl{font-family:var(--fhead);font-size:1.18rem;line-height:1.3;margin-bottom:10px}
+.bexc{color:var(--muted);font-size:.84rem;line-height:1.65}
+.bfoot{padding:14px 20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.bread{color:var(--red);font-size:.8rem;font-weight:600}
+
+/* GRAMMAR */
+.gex{background:var(--bg);border-left:3px solid var(--red);border-radius:0 var(--rsm) var(--rsm) 0;padding:12px 16px;font-family:var(--fmono);font-size:.82rem;line-height:1.7;margin-top:14px}
+.gex span{color:var(--red)}
+
+/* COMMENT */
+.cmt{background:var(--card);border:1px solid var(--border);border-radius:var(--rlg);padding:20px}
+.cav{width:40px;height:40px;border-radius:50%;background:var(--reds);color:var(--red);font-weight:700;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cauth{font-weight:600;font-size:.9rem}
+.cdate{font-size:.73rem;color:var(--muted);font-family:var(--fmono)}
+.ctxt{color:var(--text2);font-size:.87rem;line-height:1.65;margin-top:10px}
+
+/* QUIZ */
+.qbox{background:var(--card);border:1px solid var(--border);border-radius:var(--rxl);padding:48px;max-width:640px;margin:0 auto}
+.qq{font-family:var(--fhead);font-size:1.4rem;color:var(--text);margin-bottom:8px}
+.qsub{color:var(--muted);font-size:.84rem;margin-bottom:20px}
+.qopts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.qopt{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--rmd);padding:13px 16px;font-size:.87rem;text-align:left;transition:all .18s;color:var(--text)}
+.qopt:hover:not(:disabled){border-color:var(--red);background:var(--reds)}
+.qopt.ok{border-color:var(--green);background:var(--greens);color:var(--green);font-weight:600}
+.qopt.no{border-color:var(--red);background:var(--reds);color:var(--red);font-weight:600}
+.qfb{padding:14px 16px;border-radius:var(--rmd);font-size:.85rem;line-height:1.6;margin-bottom:16px}
+.qfb.ok{background:var(--greens);color:#1a7a4a}.qfb.no{background:var(--reds);color:var(--red)}
+
+/* STATS */
+.scard{background:var(--card);border:1px solid var(--border);border-radius:var(--rlg);padding:32px;text-align:center}
+.snum{font-family:var(--fhead);font-size:3rem;font-weight:800;color:var(--red);display:block;line-height:1;margin-bottom:8px}
+.slbl{color:var(--muted);font-size:.82rem}
+.skrow{background:var(--card);border:1px solid var(--border);border-radius:var(--rmd);padding:16px 20px}
+.sklbl{display:flex;justify-content:space-between;margin-bottom:10px;font-size:.87rem}
+.skpct{font-family:var(--fmono);font-size:.78rem;color:var(--red)}
+
+/* RESOURCE */
+.rcard{background:var(--card);border:1px solid var(--border);border-radius:var(--rlg);padding:20px;transition:all .2s}
+.rcard:hover{transform:translateY(-3px);box-shadow:var(--shm);border-color:rgba(192,57,43,.3)}
+.stars{color:var(--yellow);font-size:.82rem;margin-top:12px}
+
+/* CULTURE */
+.culcard{background:var(--card);border:1px solid var(--border);border-radius:var(--rxl);padding:28px 20px;text-align:center;transition:all .2s}
+.culcard:hover{transform:translateY(-4px);box-shadow:var(--shm)}
+
+/* MODAL */
+.msk{position:fixed;inset:0;z-index:500;background:rgba(30,15,5,.55);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:20px}
+.mbox{background:var(--card);border:1px solid var(--border);border-radius:var(--rxl);padding:48px;max-width:640px;width:100%;max-height:85vh;overflow-y:auto;position:relative}
+.mclose{position:absolute;top:16px;right:16px;background:var(--bg);border:1px solid var(--border);border-radius:var(--rfull);width:32px;height:32px;font-size:1rem;color:var(--muted);transition:all .18s;line-height:1}
+.mclose:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.mttl{font-family:var(--fhead);font-size:1.65rem;margin-bottom:8px;line-height:1.2}
+.mmeta{color:var(--muted);font-size:.78rem;font-family:var(--fmono);margin-bottom:20px}
+.mbody{color:var(--text2);font-size:.91rem;line-height:1.8;white-space:pre-line}
+
+/* ADMIN PANEL */
+.adm-wrap{display:grid;grid-template-columns:240px 1fr;min-height:100vh;padding-top:64px}
+.adm-side{background:#140800;border-right:1px solid #2a1500;padding:24px 14px;position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto;display:flex;flex-direction:column;gap:2px}
+.adm-side-ttl{font-size:.66rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:0 8px 12px}
+.adm-nb{width:100%;text-align:left;background:none;border:none;padding:10px 12px;border-radius:var(--rsm);font-size:.85rem;color:rgba(255,255,255,.5);transition:all .18s;display:flex;align-items:center;gap:10px}
+.adm-nb:hover{background:rgba(192,57,43,.2);color:#fff}
+.adm-nb.on{background:var(--red);color:#fff;font-weight:600}
+.adm-con{padding:48px;background:var(--bg)}
+.adm-hdr{margin-bottom:28px}
+.adm-ttl{font-family:var(--fhead);font-size:2rem}
+.adm-sub{color:var(--muted);font-size:.87rem;margin-top:4px}
+.adm-tbl{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--rlg);overflow:hidden;border:1px solid var(--border)}
+.adm-tbl th{background:var(--bg);padding:12px 20px;text-align:left;font-size:.71rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border)}
+.adm-tbl td{padding:14px 20px;border-bottom:1px solid var(--border2);font-size:.86rem;vertical-align:middle}
+.adm-tbl tr:last-child td{border-bottom:none}
+.adm-tbl tr:hover td{background:rgba(0,0,0,.015)}
+.adm-form{background:var(--card);border:1px solid var(--border);border-radius:var(--rxl);padding:40px}
+.chkwrap{display:flex;align-items:center;gap:10px;font-size:.9rem;cursor:pointer}
+.chkwrap input{width:18px;height:18px;accent-color:var(--red)}
+
+/* CONTACT */
+.ctgrid{display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:start}
+.ctquote{font-family:var(--fhead);font-style:italic;font-size:1.65rem;color:var(--red);line-height:1.35;margin-bottom:20px}
+
+/* INBOX in admin */
+.inbox-msg{background:var(--card);border:1px solid var(--border);border-radius:var(--rlg);padding:20px;transition:border-color .2s}
+.inbox-msg.unread{border-left:3px solid var(--red)}
+.inbox-from{font-weight:600;font-size:.9rem}
+.inbox-meta{font-size:.74rem;color:var(--muted);font-family:var(--fmono);margin-top:2px}
+.inbox-text{color:var(--text2);font-size:.87rem;line-height:1.65;margin-top:10px}
+
+/* PAGE */
+.page{padding-top:64px}
+
+/* FOOTER */
+footer{background:var(--text);color:rgba(255,255,255,.4);padding:32px 48px;text-align:center;font-size:.8rem}
+footer em{color:var(--red);font-style:italic;font-family:var(--fhead);font-size:.9rem}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .g3,.g4{grid-template-columns:repeat(2,1fr)}
+  .ctgrid{grid-template-columns:1fr}
+  .adm-wrap{grid-template-columns:1fr}
+  .adm-side{position:static;height:auto;flex-direction:row;flex-wrap:wrap}
+  .adm-con{padding:24px}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .qopts{grid-template-columns:1fr}
+  .hero{padding:88px 20px 48px}
+  .wrap{padding:0 20px}
+  .g2i{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="app" v-cloak>
+
+<!-- TOASTS -->
+<div class="toast-wrap">
+  <div v-for="t in toasts" :key="t.id" class="toast" :class="t.type">{{ t.icon }} {{ t.msg }}</div>
+</div>
+
+<!-- BLOG MODAL -->
+<transition name="fade">
+<div v-if="modal.open && modal.type==='blog'" class="msk" @click.self="closeModal">
+  <div class="mbox">
+    <button class="mclose" @click="closeModal">✕</button>
+    <div class="mttl">{{ modal.b.emoji }} {{ modal.b.title }}</div>
+    <div class="mmeta">{{ modal.b.date }} &nbsp;·&nbsp; <span class="chip chip-red">{{ modal.b.level }}</span></div>
+    <div class="mbody">{{ modal.b.full }}</div>
+    <div style="margin:28px 0 0;border-top:1px solid var(--border);padding-top:24px">
+      <div style="font-family:var(--fhead);font-size:1.1rem;margin-bottom:14px">Yorumlar ({{ commentsFor(modal.b.id).length }})</div>
+      <div v-if="commentsFor(modal.b.id).length===0" style="color:var(--muted);font-size:.85rem;margin-bottom:16px">Henüz yorum yok. İlk yorum yapan sen ol!</div>
+      <div v-for="c in commentsFor(modal.b.id)" :key="c.id" class="cmt" style="margin-bottom:10px">
+        <div style="display:flex;gap:12px">
+          <div class="cav">{{ c.author[0].toUpperCase() }}</div>
+          <div><div class="cauth">{{ c.author }}</div><div class="cdate">{{ c.date }}</div></div>
+        </div>
+        <div class="ctxt">{{ c.text }}</div>
+      </div>
+      <div style="background:var(--bg);border-radius:var(--rlg);padding:20px;margin-top:16px">
+        <div style="font-weight:600;font-size:.88rem;margin-bottom:12px">Yorum Yaz 💬</div>
+        <div style="display:grid;gap:12px">
+          <div class="field">
+            <label class="field-label">Adın</label>
+            <input class="inp" :class="{err:cform.error&&!cform.author}" v-model="cform.author" placeholder="Adın...">
+          </div>
+          <div class="field">
+            <label class="field-label">Yorumun</label>
+            <textarea class="inp" v-model="cform.text" placeholder="Düşüncelerini paylaş..." style="min-height:75px"></textarea>
+          </div>
+          <div v-if="cform.error" class="field-err">{{ cform.error }}</div>
+          <button class="btn btn-primary btn-sm" @click="submitComment(modal.b.id)" style="width:fit-content">Gönder ✉️</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</transition>
+
+<!-- LEVEL DETAIL MODAL -->
+<div v-if="modal.open && modal.type==='level' && modal.lvl" class="msk" @click.self="closeModal">
+  <div class="mbox" style="max-width:680px">
+    <button class="mclose" @click="closeModal">✕</button>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:8px">
+      <div style="font-family:var(--fhead);font-size:3rem;font-weight:800;color:var(--red);line-height:1">{{ modal.lvl.code }}</div>
+      <div>
+        <div style="font-family:var(--fhead);font-size:1.5rem">{{ modal.lvl.name }}</div>
+        <span class="chip" :class="modal.lvl.statusChip || 'chip-muted'" style="margin-top:4px">{{ modal.lvl.statusLabel }}</span>
+      </div>
+    </div>
+    <div class="mmeta">{{ modal.lvl.cefr }}</div>
+    <p style="color:var(--muted);font-size:.9rem;line-height:1.7;margin-bottom:24px">{{ modal.lvl.summary }}</p>
+    <div v-if="modal.lvl.topics && modal.lvl.topics.length" style="display:grid;gap:10px;margin-bottom:24px">
+      <div v-for="t in modal.lvl.topics" :key="t.title" class="lvl-topic">
+        <div class="lvl-topic-title"><span>{{ t.icon }}</span>{{ t.title }}</div>
+        <div class="lvl-topic-desc">{{ t.desc }}</div>
+      </div>
+    </div>
+    <div v-if="modal.lvl.timeline && modal.lvl.timeline.length">
+      <div style="font-weight:700;font-size:.88rem;margin-bottom:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)">Öğrenme Süreci</div>
+      <div class="lvl-timeline">
+        <div v-for="item in modal.lvl.timeline" :key="item.date" class="lvl-tl-item">
+          <div style="font-size:.75rem;font-family:var(--fmono);color:var(--muted)">{{ item.date }}</div>
+          <div style="font-size:.88rem;margin-top:2px">{{ item.note }}</div>
+        </div>
+      </div>
+    </div>
+    <div v-if="modal.lvl.skills && modal.lvl.skills.length" style="margin-top:20px">
+      <div style="font-weight:700;font-size:.88rem;margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)">Konular</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <span class="chip chip-muted" v-for="s in modal.lvl.skills" :key="s">{{ s }}</span>
+      </div>
+    </div>
+    <div class="pbar" style="margin-top:20px">
+      <div class="pfill" :class="modal.lvl.pct===100?'pfill-g':''" :style="'width:'+(modal.lvl.pct||0)+'%'"></div>
+    </div>
+    <div style="font-size:.78rem;color:var(--muted);margin-top:6px;font-family:var(--fmono)">İlerleme: {{ modal.lvl.pct || 0 }}%</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ USER NAV ═══════════════════ -->
+<nav v-if="!isAdmin" class="nav">
+  <button class="nav-logo" @click="go('home')">Mi Español 🇪🇸</button>
+  <div class="nav-links">
+    <button class="nav-link" :class="{active:pg==='home'}" @click="go('home')">Anasayfa</button>
+    <button class="nav-link" :class="{active:pg==='roadmap'}" @click="go('roadmap')">Yol Haritası</button>
+    <button class="nav-link" :class="{active:pg==='vocab'}" @click="go('vocab')">Kelimeler</button>
+    <button class="nav-link" :class="{active:pg==='grammar'}" @click="go('grammar')">Gramer</button>
+    <button class="nav-link" :class="{active:pg==='blog'}" @click="go('blog')">Günlük</button>
+    <button class="nav-link" :class="{active:pg==='resources'}" @click="go('resources')">Kaynaklar</button>
+    <button class="nav-link" :class="{active:pg==='quiz'}" @click="go('quiz')">Quiz</button>
+    <button class="nav-link" :class="{active:pg==='contact'}" @click="go('contact')">İletişim</button>
+  </div>
+  <div class="nav-right">
+    <span>🇹🇷🇪🇸</span>
+    <button class="btn btn-ghost btn-sm" @click="go('login')">Admin</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════ ADMIN NAV (no public links) ═══════════════════ -->
+<nav v-if="isAdmin" class="adm-nav">
+  <button class="adm-nav-logo" @click="go('admin')">Mi Español – Admin</button>
+  <span class="adm-badge">YÖNETİCİ</span>
+  <div class="adm-nav-right">
+    <button class="btn btn-sm" style="background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.15)" @click="logout">Çıkış</button>
+  </div>
+</nav>
+
+<!-- ═══ HOME ═══ -->
+<div v-if="pg==='home' && !isAdmin" class="page">
+  <section class="hero">
+    <div class="hero-bg"></div><div class="hero-pat"></div>
+    <div class="hero-con">
+      <span class="hero-flags">{{ st.hero.flags }}</span>
+      <h1 class="hero-ttl">{{ st.hero.line1 }}<br><em>{{ st.hero.line2 }}</em></h1>
+      <p class="hero-sub">{{ st.hero.sub }}</p>
+      <div class="lvl-row">
+        <template v-for="(lv, li) in st.hero.levels" :key="li">
+          <span class="lvl" :class="lv.status==='done'?'lvl-done':lv.status==='now'?'lvl-now':'lvl-up'">
+            {{ lv.label }}{{ lv.status==='done' ? ' ✓' : lv.status==='now' ? ' ← Şu an' : lv.status==='goal' ? ' 🎯' : '' }}
+          </span>
+          <span v-if="li < st.hero.levels.length-1" class="lvl-arr">→</span>
+        </template>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <button v-for="b in st.hero.buttons" :key="b.label" :class="'btn ' + b.style" @click="go(b.page)">{{ b.label }}</button>
+      </div>
+    </div>
+  </section>
+  <section class="sec-sm" style="background:var(--surface)">
+    <div class="wrap g4">
+      <div class="scard"><span class="snum">{{ st.prog.words }}</span><div class="slbl">Kelime</div></div>
+      <div class="scard"><span class="snum">{{ st.prog.hours }}</span><div class="slbl">Çalışma Saati</div></div>
+      <div class="scard"><span class="snum">{{ st.prog.streak }}🔥</span><div class="slbl">Gün Streak</div></div>
+      <div class="scard"><span class="snum">{{ st.prog.levels }}</span><div class="slbl">Tamamlanan Seviye</div></div>
+    </div>
+  </section>
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-lbl">// son yazılar</div>
+      <h2 class="sec-ttl">Günlükten</h2>
+      <div class="g3">
+        <div v-for="b in pubBlogs.slice(-3)" :key="b.id" class="bcard" @click="openBlogModal(b)">
+          <div class="bcard-body">
+            <div class="bdate">{{ b.date }}</div>
+            <span class="chip chip-red" style="margin-bottom:8px;display:inline-block">{{ b.level }}</span>
+            <div class="bttl">{{ b.emoji }} {{ b.title }}</div>
+            <div class="bexc">{{ b.excerpt }}</div>
+          </div>
+          <div class="bfoot"><span class="bread">Oku →</span><span style="font-size:.74rem;color:var(--muted)">{{ commentsFor(b.id).length }} yorum</span></div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:32px">
+        <button class="btn btn-outline" @click="go('blog')">Tüm Yazılar →</button>
+      </div>
+    </div>
+  </section>
+  <section class="sec" style="background:var(--surface)">
+    <div class="wrap">
+      <div class="sec-lbl">// kültür</div>
+      <h2 class="sec-ttl">Cultura Española</h2>
+      <div class="g3">
+        <div v-for="c in st.culture.slice(0,3)" :key="c.id" class="culcard">
+          <div style="font-size:2.8rem;margin-bottom:14px">{{ c.icon }}</div>
+          <div style="font-family:var(--fhead);font-size:1.1rem;margin-bottom:10px">{{ c.title }}</div>
+          <div style="color:var(--muted);font-size:.83rem;line-height:1.65">{{ c.text }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><p>Meryem Şahin · <em>Mi viaje al español</em> · A1→B2 🇹🇷🇪🇸</p></footer>
+</div>
+
+<!-- ═══ ROADMAP ═══ -->
+<div v-if="pg==='roadmap' && !isAdmin" class="page">
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-lbl">// seviyeler</div>
+      <h2 class="sec-ttl">Öğrenme Yol Haritası</h2>
+      <p class="sec-desc">Her seviyeye tıkla – o seviyede ne öğrendiğini gör! 👆</p>
+      <div class="g2">
+        <div class="rmap done" @click="openLevelModal('A1')">
+          <div class="fxb" style="margin-bottom:10px"><div class="rmap-lvl">A1</div><span class="chip chip-green">✓ Tamamlandı</span></div>
+          <div class="rmap-name">Başlangıç – El primer paso</div>
+          <div class="rmap-desc">Temel selamlaşmalar, sayılar, renkler. "¡Hola!" demekten başladım.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <span class="chip chip-muted" v-for="s in ['Selamlaşma','Sayılar','Renkler','Aile']" :key="s">{{s}}</span>
+          </div>
+          <div class="pbar"><div class="pfill pfill-g" style="width:100%"></div></div>
+        </div>
+        <div class="rmap done" @click="openLevelModal('A2')">
+          <div class="fxb" style="margin-bottom:10px"><div class="rmap-lvl">A2</div><span class="chip chip-green">✓ Tamamlandı</span></div>
+          <div class="rmap-name">Temel İletişim – Comunicación básica</div>
+          <div class="rmap-desc">Basit cümleler, geçmiş zaman ve geniş zaman kullanmaya başladım.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <span class="chip chip-muted" v-for="s in ['Presente','Pretérito','Ser/Estar','Yön tarifi']" :key="s">{{s}}</span>
+          </div>
+          <div class="pbar"><div class="pfill pfill-g" style="width:100%"></div></div>
+        </div>
+        <div class="rmap now" @click="openLevelModal('B1')">
+          <div class="fxb" style="margin-bottom:10px"><div class="rmap-lvl">B1</div><span class="chip chip-yellow">⚡ Şu An</span></div>
+          <div class="rmap-name">Orta Seviye – Nivel intermedio</div>
+          <div class="rmap-desc">Subjuntivo öğreniyorum, karmaşık konular hakkında konuşabiliyorum.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <span class="chip chip-muted" v-for="s in ['Subjuntivo','Koşul','Podcast','Gazete']" :key="s">{{s}}</span>
+          </div>
+          <div class="pbar"><div class="pfill" style="width:60%"></div></div>
+        </div>
+        <div class="rmap" @click="openLevelModal('B2')">
+          <div class="fxb" style="margin-bottom:10px"><div class="rmap-lvl">B2</div><span class="chip chip-muted">🎯 Hedef</span></div>
+          <div class="rmap-name">İleri Orta – Nivel avanzado</div>
+          <div class="rmap-desc">Akıcı konuşma, DELE B2 sınavı. 2026 hedefim!</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <span class="chip chip-muted" v-for="s in ['DELE B2','Akıcı konuşma','İş İspanyolcası']" :key="s">{{s}}</span>
+          </div>
+          <div class="pbar"><div class="pfill" style="width:0%"></div></div>
+        </div>
+      </div>
+      <div style="margin-top:56px">
+        <h3 style="font-family:var(--fhead);font-size:1.8rem;margin-bottom:24px">Becerilerim</h3>
+        <div class="g2">
+          <div v-for="s in st.prog.skills" :key="s.name" class="skrow">
+            <div class="sklbl"><span>{{ s.name }}</span><span class="skpct">{{ s.pct }}%</span></div>
+            <div class="pbar"><div class="pfill" :style="'width:'+s.pct+'%'"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><p>Meryem Şahin · <em>Mi viaje al español</em></p></footer>
+</div>
+
+<!-- ═══ VOCAB ═══ -->
+<div v-if="pg==='vocab' && !isAdmin" class="page">
+  <section class="sec">
+    <div class="wrap">
+      <h2 class="sec-ttl">Vocabulario</h2>
+      <p class="sec-desc">Kartlara tıkla – örnek cümleyi gör! 💡</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px">
+        <button v-for="cat in vcats" :key="cat" class="vtab" :class="{on:vfilter===cat}" @click="vfilter=cat">{{ cat==='all'?'Tümü':cat }}</button>
+      </div>
+      <div class="ga">
+        <div v-for="v in filtVocab" :key="v.id" class="vcard" :class="{flip:flipped.has(v.id)}" @click="flipCard(v.id)">
+          <div class="ves">{{ v.es }}</div>
+          <div class="vtr">{{ v.tr }}</div>
+          <div class="vex">Örnek: "{{ v.ex }}"</div>
+          <div style="margin-top:8px"><span class="chip chip-red">{{ v.level }}</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><p>Meryem Şahin · <em>Mi viaje al español</em></p></footer>
+</div>
+
+<!-- ═══ GRAMMAR ═══ -->
+<div v-if="pg==='grammar' && !isAdmin" class="page">
+  <section class="sec">
+    <div class="wrap">
+      <h2 class="sec-ttl">Gramática</h2>
+      <div class="g2">
+        <div v-for="g in st.grammar" :key="g.id" class="card">
+          <div style="font-size:1.8rem;margin-bottom:10px">{{ g.icon }}</div>
+          <div style="font-family:var(--fhead);font-size:1.15rem;margin-bottom:6px">{{ g.title }}</div>
+          <span class="chip chip-red" style="margin-bottom:10px;display:inline-block">{{ g.level }}</span>
+          <div style="color:var(--muted);font-size:.85rem;line-height:1.65">{{ g.desc }}</div>
+          <div class="gex" v-html="g.ex.replace(/\n/g,'<br>').replace(/\*([^*]+)\*/g,'<span>$1</span>')"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><p>Meryem Şahin · <em>Mi viaje al español</em></p></footer>
+</div>
+
+<!-- ═══ BLOG ═══ -->
+<div v-if="pg==='blog' && !isAdmin" class="page">
+  <section class="sec">
+    <div class="wrap">
+      <h2 class="sec-ttl">Mi Diario</h2>
+      <div class="g3">
+        <div v-for="b in pubBlogs" :key="b.id" class="bcard" @click="openBlogModal(b)">
+          <div class="bcard-body">
+            <div class="bdate">{{ b.date }}</div>
+            <span class="chip chip-red" style="margin-bottom:8px;display:inline-block">{{ b.level }}</span>
+            <div class="bttl">{{ b.emoji }} {{ b.title }}</div>
+            <div class="bexc">{{ b.excerpt }}</div>
+          </div>
+          <div class="bfoot"><span class="bread">Devamını oku →</span><span style="font-size:.74rem;color:var(--muted)">{{ commentsFor(b.id).length }} yorum</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><p>Meryem Şahin · <em>Mi viaje al español</em></p></footer>
+</div>
+
+<!-- ═══ RESOURCES ═══ -->
+<div v-if="pg==='resources' && !isAdmin" class="page">
+  <section class="sec">
+    <div class="wrap">
+      <h2 class="sec-ttl">Mis Recursos</h2>
+      <div class="ga">
+        <div v-for="r in st.resources" :key="r.id" class="rcard">
+          <div style="font-size:1.8rem;margin-bottom:12px">{{ r.emoji }}</div>
+          <div style="font-size:.7rem;font-family:var(--fmono);color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">{{ r.type }}</div>
+          <div style="font-weight:600;margin-bottom:6px">{{ r.name }}</div>
+          <div style="color:var(--muted);font-size:.82rem;line-height:1.6">{{ r.desc }}</div>
+          <div class="stars">{{ '★'.repeat(r.stars) }}{{ '☆'.repeat(5-r.stars) }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><p>Meryem Şahin · <em>Mi viaje al español</em></p></footer>
+</div>
+
+<!-- ═══ QUIZ ═══ -->
+<div v-if="pg==='quiz' && !isAdmin" class="page">
+  <section class="sec">
+    <div class="wrap">
+      <h2 class="sec-ttl">Mini Quiz 🧠</h2>
+      <div class="qbox">
+        <div v-if="!qz.done">
+          <div class="fxb" style="margin-bottom:16px">
+            <span class="chip chip-muted">Soru {{ qz.i+1 }} / {{ st.quiz.length }}</span>
+            <span class="chip chip-red">Puan: {{ qz.score }}</span>
+          </div>
+          <div class="qq">{{ st.quiz[qz.i].q }}</div>
+          <div class="qsub">{{ st.quiz[qz.i].sub }}</div>
+          <div class="qopts">
+            <button v-for="(o,idx) in st.quiz[qz.i].opts" :key="idx" class="qopt"
+              :class="{ok:qz.answered&&idx===st.quiz[qz.i].ans,no:qz.answered&&idx===qz.chosen&&idx!==st.quiz[qz.i].ans}"
+              :disabled="qz.answered" @click="qAnswer(idx)">{{ o }}</button>
+          </div>
+          <div v-if="qz.answered" class="qfb" :class="{ok:qz.chosen===st.quiz[qz.i].ans,no:qz.chosen!==st.quiz[qz.i].ans}">
+            {{ qz.chosen===st.quiz[qz.i].ans?'✅':'❌' }} {{ st.quiz[qz.i].explain }}
+          </div>
+          <div class="fxb"><span></span><button v-if="qz.answered" class="btn btn-primary" @click="qNext">Sonraki →</button></div>
+        </div>
+        <div v-else style="text-align:center;padding:24px 0">
+          <span class="snum">{{ qz.score }}/{{ st.quiz.length }}</span>
+          <div style="color:var(--muted);margin:12px 0 24px">{{ qMsg }}</div>
+          <button class="btn btn-primary" @click="qRestart">Tekrar Dene 🔄</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><p>Meryem Şahin · <em>Mi viaje al español</em></p></footer>
+</div>
+
+<!-- ═══ CONTACT ═══ -->
+<div v-if="pg==='contact' && !isAdmin" class="page">
+  <section class="sec">
+    <div class="wrap">
+      <h2 class="sec-ttl">Hablemos 💬</h2>
+      <div class="ctgrid">
+        <div>
+          <div class="ctquote">"El límite del lenguaje es el límite del mundo."</div>
+          <p style="color:var(--muted);font-size:.9rem;line-height:1.75;margin-bottom:16px">Birlikte İspanyolca öğreniyor musun? Dil takası yapmak ister misin? Her türlü mesaj için buradayım!</p>
+          <p style="color:var(--muted);font-size:.84rem;line-height:1.6;background:var(--reds);border-radius:var(--rmd);padding:14px 16px;border-left:3px solid var(--red)">
+            📬 Mesajın doğrudan yönetici paneline iletilir ve Meryem tarafından okunur.
+          </p>
+        </div>
+        <div class="card-flat" style="border-radius:var(--rxl)">
+          <div style="display:grid;gap:16px">
+            <div class="field">
+              <label class="field-label">Adın *</label>
+              <input class="inp" :class="{err:ctf.err&&!ctf.name}" v-model="ctf.name" placeholder="Adın Soyadın">
+            </div>
+            <div class="field">
+              <label class="field-label">E-posta *</label>
+              <input class="inp" :class="{err:ctf.err&&!ctf.email}" type="email" v-model="ctf.email" placeholder="ornek@email.com">
+            </div>
+            <div class="field">
+              <label class="field-label">Konu</label>
+              <input class="inp" v-model="ctf.subject" placeholder="Dil takası, soru...">
+            </div>
+            <div class="field">
+              <label class="field-label">Mesajın *</label>
+              <textarea class="inp" :class="{err:ctf.err&&!ctf.msg}" v-model="ctf.msg" placeholder="¡Hola! Quiero practicar español..."></textarea>
+            </div>
+            <div v-if="ctf.err" class="field-err">{{ ctf.err }}</div>
+            <button class="btn btn-primary" :class="{dis:ctf.sent}" @click="sendContact">
+              {{ ctf.sent?'✅ Gönderildi!':'Gönder ✉️' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer><p>Meryem Şahin · <em>Mi viaje al español</em></p></footer>
+</div>
+
+<!-- ═══ ADMIN LOGIN ═══ -->
+<div v-if="pg==='login'" class="page">
+  <section class="sec" style="min-height:80vh;display:flex;align-items:center">
+    <div class="wrap" style="width:100%">
+      <div style="max-width:400px;margin:0 auto">
+        <div class="card" style="border-radius:var(--rxl);padding:40px">
+          <div style="font-family:var(--fhead);font-size:1.8rem;margin-bottom:6px">Admin Girişi 🔐</div>
+          <!-- Normal login -->
+          <div v-if="loginStep==='pw'" style="display:grid;gap:14px;margin-top:20px">
+            <div class="field">
+              <label class="field-label">Şifre</label>
+              <input class="inp" :class="{err:loginErr}" type="password" v-model="loginPw" @keyup.enter="doLogin" placeholder="••••••••">
+              <div v-if="loginErr" class="field-err">{{ loginErr }}</div>
+            </div>
+            <button class="btn btn-primary" @click="doLogin">Giriş Yap →</button>
+            <button class="btn btn-outline btn-sm" @click="loginStep='reset-req'" style="margin-top:4px">Şifremi Unuttum</button>
+            <button class="btn btn-outline" @click="go('home')">İptal</button>
+          </div>
+          <!-- Reset: request code -->
+          <div v-if="loginStep==='reset-req'" style="display:grid;gap:14px;margin-top:20px">
+           
+            <button class="btn btn-primary" @click="sendResetCode">Kod Gönder 📧</button>
+            <button class="btn btn-outline" @click="loginStep='pw'">← Geri</button>
+          </div>
+          <!-- Reset: enter code + new pw -->
+          <div v-if="loginStep==='reset-code'" style="display:grid;gap:14px;margin-top:20px">
+            <div style="background:var(--greens);border-radius:var(--rmd);padding:12px 16px;font-size:.84rem;color:#1a7a4a">
+              ✅ Kod gönderildi! Aşağıda simülasyon için kodu görebilirsin:<br>
+              <strong style="font-family:var(--fmono);font-size:1.1rem;display:block;margin-top:6px;letter-spacing:.2em">{{ resetCodeDisplay }}</strong>
+            </div>
+            <div class="field">
+              <label class="field-label">E-postana Gelen Kod</label>
+              <input class="inp" :class="{err:resetErr}" v-model="resetCodeInput" placeholder="000000" maxlength="6" style="letter-spacing:.2em;font-size:1.2rem;font-family:var(--fmono)">
+            </div>
+            <div class="field">
+              <label class="field-label">Yeni Şifre</label>
+              <input class="inp" type="password" v-model="newPw" placeholder="Yeni şifren...">
+            </div>
+            <div class="field">
+              <label class="field-label">Yeni Şifre Tekrar</label>
+              <input class="inp" type="password" v-model="newPw2" placeholder="Tekrar gir...">
+            </div>
+            <div v-if="resetErr" class="field-err">{{ resetErr }}</div>
+            <button class="btn btn-primary" @click="doResetPw">Şifreyi Güncelle ✅</button>
+            <button class="btn btn-outline" @click="loginStep='pw'">← Geri</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ ADMIN PANEL ═══ -->
+<div v-if="pg==='admin' && isAdmin" class="adm-wrap">
+  <aside class="adm-side">
+    <div class="adm-side-ttl">Yönetim Paneli</div>
+    <button class="adm-nb" :class="{on:as==='dash'}" @click="as='dash'">📊 Dashboard</button>
+    <button class="adm-nb" :class="{on:as==='inbox'}" @click="as='inbox'">
+      📬 Gelen Kutusu <span v-if="unreadMsgs>0" class="chip chip-yellow" style="margin-left:auto">{{ unreadMsgs }}</span>
+    </button>
+    <button class="adm-nb" :class="{on:as==='hero'}" @click="as='hero'">🏠 Hero</button>
+    <button class="adm-nb" :class="{on:as==='blogs'||as==='bedit'}" @click="as='blogs'">📓 Blog</button>
+    <button class="adm-nb" :class="{on:as==='vocab'||as==='vedit'}" @click="as='vocab'">📚 Kelimeler</button>
+    <button class="adm-nb" :class="{on:as==='gram'||as==='gedit'}" @click="as='gram'">📐 Gramer</button>
+    <button class="adm-nb" :class="{on:as==='res'||as==='redit'}" @click="as='res'">🌐 Kaynaklar</button>
+    <button class="adm-nb" :class="{on:as==='cul'||as==='cedit'}" @click="as='cul'">🏛️ Kültür</button>
+    <button class="adm-nb" :class="{on:as==='cmts'}" @click="as='cmts'">
+      💬 Yorumlar <span v-if="pendCnt>0" class="chip chip-yellow" style="margin-left:auto">{{ pendCnt }}</span>
+    </button>
+    <button class="adm-nb" :class="{on:as==='prog'}" @click="as='prog'">📈 İlerleme</button>
+    <button class="adm-nb" :class="{on:as==='quiz'}" @click="as='quiz'">🧠 Quiz</button>
+    <button class="adm-nb" :class="{on:as==='settings'}" @click="as='settings'">⚙️ Şifre Değiştir</button>
+    <div style="margin-top:auto;padding-top:20px;border-top:1px solid rgba(255,255,255,.08)">
+      <button class="adm-nb" @click="openSiteInNewTab">🌐 Siteyi Görüntüle</button>
+    </div>
+  </aside>
+  <main class="adm-con">
+
+    <!-- DASHBOARD -->
+    <div v-if="as==='dash'">
+      <div class="adm-hdr"><div class="adm-ttl">Merhaba, Meryem! 👋</div><div class="adm-sub">Tüm içerikleri buradan yönet.</div></div>
+      <div class="g4" style="margin-bottom:28px">
+        <div class="scard"><span class="snum">{{ st.blogs.length }}</span><div class="slbl">Toplam Yazı</div></div>
+        <div class="scard"><span class="snum">{{ st.vocab.length }}</span><div class="slbl">Kelime</div></div>
+        <div class="scard"><span class="snum">{{ st.messages.length }}</span><div class="slbl">Mesaj</div></div>
+        <div class="scard"><span class="snum">{{ pendCnt }}</span><div class="slbl">Bekleyen Yorum</div></div>
+      </div>
+      <div class="g3">
+        <div class="card" style="cursor:pointer" @click="as='inbox'">
+          <div style="font-size:2rem;margin-bottom:10px">📬</div>
+          <div style="font-weight:600">Gelen Kutusu</div>
+          <div style="color:var(--muted);font-size:.82rem;margin-top:4px">{{ unreadMsgs }} okunmamış mesaj</div>
+        </div>
+        <div class="card" style="cursor:pointer" @click="as='cmts'">
+          <div style="font-size:2rem;margin-bottom:10px">💬</div>
+          <div style="font-weight:600">Yorumları Onayla</div>
+          <div style="color:var(--muted);font-size:.82rem;margin-top:4px">{{ pendCnt }} bekliyor</div>
+        </div>
+        <div class="card" style="cursor:pointer" @click="as='blogs'">
+          <div style="font-size:2rem;margin-bottom:10px">📓</div>
+          <div style="font-weight:600">Blog Yönet</div>
+          <div style="color:var(--muted);font-size:.82rem;margin-top:4px">Yaz, düzenle, sil</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INBOX -->
+    <div v-if="as==='inbox'">
+      <div class="adm-hdr fxb">
+        <div><div class="adm-ttl">📬 Gelen Kutusu</div><div class="adm-sub">İletişim formundan gelen mesajlar</div></div>
+        <button v-if="st.messages.length>0" class="btn btn-outline btn-sm" @click="markAllRead">Tümünü Okundu İşaretle</button>
+      </div>
+      <div v-if="st.messages.length===0" style="color:var(--muted);padding:40px;text-align:center;background:var(--card);border:1px solid var(--border);border-radius:var(--rlg)">
+        📭 Henüz mesaj yok.
+      </div>
+      <div style="display:grid;gap:12px">
+        <div v-for="m in [...st.messages].reverse()" :key="m.id" class="inbox-msg" :class="{unread:!m.read}">
+          <div class="fxb">
+            <div>
+              <div class="inbox-from">{{ m.name }} <span style="color:var(--muted);font-weight:400;font-size:.82rem">— {{ m.email }}</span></div>
+              <div class="inbox-meta">{{ m.date }} {{ m.time }} <span v-if="m.subject" style="margin-left:8px">· {{ m.subject }}</span></div>
+            </div>
+            <div style="display:flex;gap:6px;align-items:center">
+              <span v-if="!m.read" class="chip chip-red">Yeni</span>
+              <button class="btn btn-ghost btn-sm" @click="markRead(m.id)">✓ Okundu</button>
+              <button class="btn btn-danger btn-sm" @click="deleteMsg(m.id)">🗑️</button>
+            </div>
+          </div>
+          <div class="inbox-text">{{ m.msg }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <div v-if="as==='hero'">
+      <div class="adm-hdr"><div class="adm-ttl">🏠 Hero Bölümü — Tam Yönetim</div><div class="adm-sub">Ana sayfanın ilk ekranındaki her şeyi buradan değiştirebilirsin</div></div>
+
+      <!-- Temel metinler -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--rmd);padding:24px;margin-bottom:20px">
+        <div style="font-weight:700;font-size:.85rem;margin-bottom:16px;color:var(--text)">📝 Başlık & Metin</div>
+        <div style="display:grid;gap:16px;max-width:640px">
+          <div class="field"><label class="field-label">Bayraklar / Semboller</label><input class="inp" v-model="st.hero.flags" placeholder="🇹🇷 ✦ 🇪🇸"></div>
+          <div class="field"><label class="field-label">1. Satır (büyük başlık)</label><input class="inp" v-model="st.hero.line1"></div>
+          <div class="field"><label class="field-label">2. Satır (italik, kırmızı)</label><input class="inp" v-model="st.hero.line2"></div>
+          <div class="field"><label class="field-label">Alt başlık / açıklama</label><textarea class="inp" v-model="st.hero.sub" style="min-height:80px"></textarea></div>
+        </div>
+      </div>
+
+      <!-- Seviye şeridi -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--rmd);padding:24px;margin-bottom:20px">
+        <div class="fxb" style="margin-bottom:16px">
+          <div style="font-weight:700;font-size:.85rem;color:var(--text)">🎯 Seviye Şeridi</div>
+          <button class="btn btn-ghost btn-sm" @click="st.hero.levels.push({label:'C1',status:'future'})">+ Seviye Ekle</button>
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);margin-bottom:14px">Durum seçenekleri: <code>done</code> (tamamlandı ✓), <code>now</code> (şu an → sarı), <code>goal</code> (hedef 🎯), <code>future</code> (gelecek)</div>
+        <div style="display:grid;gap:10px;max-width:700px">
+          <div v-for="(lv,li) in st.hero.levels" :key="li" style="display:grid;grid-template-columns:1fr 160px 40px;gap:10px;align-items:center">
+            <div class="field" style="margin:0"><input class="inp" v-model="lv.label" placeholder="A1, B1..." style="font-weight:600"></div>
+            <div class="field" style="margin:0">
+              <select class="inp" v-model="lv.status" style="height:44px">
+                <option value="done">✓ Tamamlandı</option>
+                <option value="now">⚡ Şu An (sarı)</option>
+                <option value="goal">🎯 Hedef</option>
+                <option value="future">○ Gelecek</option>
+              </select>
+            </div>
+            <button class="btn btn-danger btn-sm" @click="st.hero.levels.splice(li,1)" style="padding:8px;justify-content:center">🗑️</button>
+          </div>
+        </div>
+        <!-- Önizleme -->
+        <div style="margin-top:20px;padding:16px;background:var(--card);border-radius:var(--rsm);border:1px solid var(--border2)">
+          <div style="font-size:.7rem;color:var(--muted);margin-bottom:10px;font-family:var(--fmono);letter-spacing:.1em">ÖNİZLEME</div>
+          <div class="lvl-row" style="margin:0">
+            <template v-for="(lv,li) in st.hero.levels" :key="li">
+              <span class="lvl" :class="lv.status==='done'?'lvl-done':lv.status==='now'?'lvl-now':'lvl-up'">
+                {{ lv.label }}{{ lv.status==='done' ? ' ✓' : lv.status==='now' ? ' ← Şu an' : lv.status==='goal' ? ' 🎯' : '' }}
+              </span>
+              <span v-if="li < st.hero.levels.length-1" class="lvl-arr">→</span>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- Butonlar -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--rmd);padding:24px;margin-bottom:20px">
+        <div class="fxb" style="margin-bottom:16px">
+          <div style="font-weight:700;font-size:.85rem;color:var(--text)">🔘 Butonlar</div>
+          <button class="btn btn-ghost btn-sm" @click="st.hero.buttons.push({label:'Yeni Buton',style:'btn-outline',page:'home'})">+ Buton Ekle</button>
+        </div>
+        <div style="display:grid;gap:10px;max-width:700px">
+          <div v-for="(b,bi) in st.hero.buttons" :key="bi" style="display:grid;grid-template-columns:1fr 160px 160px 40px;gap:10px;align-items:center">
+            <input class="inp" v-model="b.label" placeholder="Buton metni">
+            <select class="inp" v-model="b.style" style="height:44px">
+              <option value="btn-primary">Kırmızı (Ana)</option>
+              <option value="btn-outline">Çerçeveli</option>
+              <option value="btn-ghost">Şeffaf</option>
+            </select>
+            <select class="inp" v-model="b.page" style="height:44px">
+              <option value="home">Ana Sayfa</option>
+              <option value="roadmap">Yolculuk</option>
+              <option value="vocab">Kelimeler</option>
+              <option value="grammar">Gramer</option>
+              <option value="blog">Günlük</option>
+              <option value="quiz">Quiz</option>
+              <option value="resources">Kaynaklar</option>
+              <option value="contact">İletişim</option>
+            </select>
+            <button class="btn btn-danger btn-sm" @click="st.hero.buttons.splice(bi,1)" style="padding:8px;justify-content:center">🗑️</button>
+          </div>
+        </div>
+        <!-- Buton önizleme -->
+        <div style="margin-top:16px;padding:16px;background:var(--card);border-radius:var(--rsm);border:1px solid var(--border2)">
+          <div style="font-size:.7rem;color:var(--muted);margin-bottom:10px;font-family:var(--fmono);letter-spacing:.1em">ÖNİZLEME</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <span v-for="b in st.hero.buttons" :key="b.label" :class="'btn ' + b.style" style="pointer-events:none">{{ b.label }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- İstatistik kartları -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--rmd);padding:24px;margin-bottom:20px">
+        <div style="font-weight:700;font-size:.85rem;margin-bottom:4px;color:var(--text)">📊 İstatistik Kartları (Hero altı)</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-bottom:16px">Ana sayfada hero'nun hemen altında görünen 4 kart</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:700px">
+          <div style="text-align:center;background:var(--card);border:1px solid var(--border);border-radius:var(--rmd);padding:16px">
+            <div style="font-size:1.5rem;font-weight:700;color:var(--red)">{{ st.prog.words }}</div>
+            <input class="inp" type="number" v-model="st.prog.words" style="text-align:center;margin-top:6px;font-size:.8rem">
+            <div style="font-size:.72rem;color:var(--muted);margin-top:4px">Kelime</div>
+          </div>
+          <div style="text-align:center;background:var(--card);border:1px solid var(--border);border-radius:var(--rmd);padding:16px">
+            <div style="font-size:1.5rem;font-weight:700;color:var(--red)">{{ st.prog.hours }}</div>
+            <input class="inp" type="number" v-model="st.prog.hours" style="text-align:center;margin-top:6px;font-size:.8rem">
+            <div style="font-size:.72rem;color:var(--muted);margin-top:4px">Çalışma Saati</div>
+          </div>
+          <div style="text-align:center;background:var(--card);border:1px solid var(--border);border-radius:var(--rmd);padding:16px">
+            <div style="font-size:1.5rem;font-weight:700;color:var(--red)">{{ st.prog.streak }}🔥</div>
+            <input class="inp" type="number" v-model="st.prog.streak" style="text-align:center;margin-top:6px;font-size:.8rem">
+            <div style="font-size:.72rem;color:var(--muted);margin-top:4px">Gün Streak</div>
+          </div>
+          <div style="text-align:center;background:var(--card);border:1px solid var(--border);border-radius:var(--rmd);padding:16px">
+            <div style="font-size:1.5rem;font-weight:700;color:var(--red)">{{ st.prog.levels }}</div>
+            <input class="inp" type="number" v-model="st.prog.levels" style="text-align:center;margin-top:6px;font-size:.8rem">
+            <div style="font-size:.72rem;color:var(--muted);margin-top:4px">Tamamlanan Seviye</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" @click="save('Hero')">💾 Tümünü Kaydet ✅</button>
+    </div>
+
+    <!-- BLOG LIST -->
+    <div v-if="as==='blogs'">
+      <div class="adm-hdr fxb">
+        <div><div class="adm-ttl">Blog Yazıları</div><div class="adm-sub">{{ st.blogs.length }} yazı</div></div>
+        <button class="btn btn-primary" @click="newBlog">+ Yeni Yazı</button>
+      </div>
+      <table class="adm-tbl">
+        <thead><tr><th>Başlık</th><th>Tarih</th><th>Seviye</th><th>Durum</th><th>Yorum</th><th>İşlem</th></tr></thead>
+        <tbody>
+          <tr v-for="b in st.blogs" :key="b.id">
+            <td style="font-weight:500">{{ b.emoji }} {{ b.title }}</td>
+            <td style="color:var(--muted)">{{ b.date }}</td>
+            <td><span class="chip chip-red">{{ b.level }}</span></td>
+            <td><span class="chip" :class="b.pub?'chip-green':'chip-muted'">{{ b.pub?'Yayında':'Taslak' }}</span></td>
+            <td>{{ commentsFor(b.id).length }}</td>
+            <td><div style="display:flex;gap:6px">
+              <button class="btn btn-ghost btn-sm" @click="editBlog(b)">✏️ Düzenle</button>
+              <button class="btn btn-danger btn-sm" @click="delBlog(b.id)">🗑️</button>
+            </div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- BLOG EDIT -->
+    <div v-if="as==='bedit' && ed.blog">
+      <div class="adm-hdr fxb">
+        <div><div class="adm-ttl">{{ ed.blog._new?'Yeni Yazı':'Yazı Düzenle' }}</div></div>
+        <button class="btn btn-outline" @click="as='blogs'">← Geri</button>
+      </div>
+      <div class="adm-form" style="display:grid;gap:18px">
+        <div class="g2i">
+          <div class="field"><label class="field-label">Emoji</label><input class="inp" v-model="ed.blog.emoji" placeholder="✍️"></div>
+          <div class="field"><label class="field-label">Seviye</label><input class="inp" v-model="ed.blog.level" placeholder="B1"></div>
+        </div>
+        <div class="field"><label class="field-label">Başlık *</label><input class="inp" :class="{err:!ed.blog.title}" v-model="ed.blog.title"></div>
+        <div class="field"><label class="field-label">Tarih</label><input class="inp" v-model="ed.blog.date"></div>
+        <div class="field"><label class="field-label">Özet</label><textarea class="inp" v-model="ed.blog.excerpt"></textarea></div>
+        <div class="field"><label class="field-label">Tam İçerik *</label><textarea class="inp" :class="{err:!ed.blog.full}" v-model="ed.blog.full" style="min-height:180px"></textarea></div>
+        <label class="chkwrap"><input type="checkbox" v-model="ed.blog.pub"> Yayınla</label>
+        <div style="display:flex;gap:12px">
+          <button class="btn btn-primary" @click="saveBlog">💾 Kaydet</button>
+          <button class="btn btn-outline" @click="as='blogs'">İptal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VOCAB LIST -->
+    <div v-if="as==='vocab'">
+      <div class="adm-hdr fxb">
+        <div><div class="adm-ttl">Kelimeler</div><div class="adm-sub">{{ st.vocab.length }} kelime</div></div>
+        <button class="btn btn-primary" @click="newVocab">+ Yeni Kelime</button>
+      </div>
+      <table class="adm-tbl">
+        <thead><tr><th>İspanyolca</th><th>Türkçe</th><th>Örnek</th><th>Seviye</th><th>Kategori</th><th>İşlem</th></tr></thead>
+        <tbody>
+          <tr v-for="v in st.vocab" :key="v.id">
+            <td style="font-style:italic;color:var(--red);font-family:var(--fhead)">{{ v.es }}</td>
+            <td>{{ v.tr }}</td>
+            <td style="color:var(--muted);font-size:.8rem;max-width:180px">{{ v.ex }}</td>
+            <td><span class="chip chip-red">{{ v.level }}</span></td>
+            <td><span class="chip chip-muted">{{ v.cat }}</span></td>
+            <td><div style="display:flex;gap:6px">
+              <button class="btn btn-ghost btn-sm" @click="editVocab(v)">✏️</button>
+              <button class="btn btn-danger btn-sm" @click="delVocab(v.id)">🗑️</button>
+            </div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- VOCAB EDIT -->
+    <div v-if="as==='vedit' && ed.vocab">
+      <div class="adm-hdr fxb"><div><div class="adm-ttl">Kelime Düzenle</div></div><button class="btn btn-outline" @click="as='vocab'">← Geri</button></div>
+      <div class="adm-form" style="display:grid;gap:18px;max-width:640px">
+        <div class="g2i">
+          <div class="field"><label class="field-label">İspanyolca *</label><input class="inp" :class="{err:!ed.vocab.es}" v-model="ed.vocab.es"></div>
+          <div class="field"><label class="field-label">Türkçe *</label><input class="inp" :class="{err:!ed.vocab.tr}" v-model="ed.vocab.tr"></div>
+        </div>
+        <div class="field"><label class="field-label">Örnek cümle</label><input class="inp" v-model="ed.vocab.ex"></div>
+        <div class="g2i">
+          <div class="field"><label class="field-label">Seviye</label><input class="inp" v-model="ed.vocab.level"></div>
+          <div class="field"><label class="field-label">Kategori</label><input class="inp" v-model="ed.vocab.cat"></div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <button class="btn btn-primary" @click="saveVocab">💾 Kaydet</button>
+          <button class="btn btn-outline" @click="as='vocab'">İptal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRAMMAR LIST -->
+    <div v-if="as==='gram'">
+      <div class="adm-hdr fxb">
+        <div><div class="adm-ttl">Gramer Notları</div></div>
+        <button class="btn btn-primary" @click="newGram">+ Yeni Not</button>
+      </div>
+      <table class="adm-tbl">
+        <thead><tr><th>Başlık</th><th>Seviye</th><th>İşlem</th></tr></thead>
+        <tbody>
+          <tr v-for="g in st.grammar" :key="g.id">
+            <td>{{ g.icon }} {{ g.title }}</td>
+            <td><span class="chip chip-red">{{ g.level }}</span></td>
+            <td><div style="display:flex;gap:6px">
+              <button class="btn btn-ghost btn-sm" @click="editGram(g)">✏️</button>
+              <button class="btn btn-danger btn-sm" @click="delGram(g.id)">🗑️</button>
+            </div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- GRAMMAR EDIT -->
+    <div v-if="as==='gedit' && ed.gram">
+      <div class="adm-hdr fxb"><div><div class="adm-ttl">Gramer Notu</div></div><button class="btn btn-outline" @click="as='gram'">← Geri</button></div>
+      <div class="adm-form" style="display:grid;gap:18px;max-width:640px">
+        <div class="g2i">
+          <div class="field"><label class="field-label">İkon</label><input class="inp" v-model="ed.gram.icon"></div>
+          <div class="field"><label class="field-label">Seviye</label><input class="inp" v-model="ed.gram.level"></div>
+        </div>
+        <div class="field"><label class="field-label">Başlık *</label><input class="inp" :class="{err:!ed.gram.title}" v-model="ed.gram.title"></div>
+        <div class="field"><label class="field-label">Açıklama</label><textarea class="inp" v-model="ed.gram.desc"></textarea></div>
+        <div class="field"><label class="field-label">Örnek (yeni satır = Enter, vurgu = *kelime*)</label><textarea class="inp" v-model="ed.gram.ex" style="min-height:100px"></textarea></div>
+        <div style="display:flex;gap:12px">
+          <button class="btn btn-primary" @click="saveGram">💾 Kaydet</button>
+          <button class="btn btn-outline" @click="as='gram'">İptal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESOURCES LIST -->
+    <div v-if="as==='res'">
+      <div class="adm-hdr fxb">
+        <div><div class="adm-ttl">Kaynaklar</div></div>
+        <button class="btn btn-primary" @click="newRes">+ Yeni Kaynak</button>
+      </div>
+      <table class="adm-tbl">
+        <thead><tr><th>Ad</th><th>Tür</th><th>Puan</th><th>İşlem</th></tr></thead>
+        <tbody>
+          <tr v-for="r in st.resources" :key="r.id">
+            <td>{{ r.emoji }} {{ r.name }}</td>
+            <td><span class="chip chip-muted">{{ r.type }}</span></td>
+            <td>{{ '★'.repeat(r.stars) }}</td>
+            <td><div style="display:flex;gap:6px">
+              <button class="btn btn-ghost btn-sm" @click="editRes(r)">✏️</button>
+              <button class="btn btn-danger btn-sm" @click="delRes(r.id)">🗑️</button>
+            </div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- RESOURCE EDIT -->
+    <div v-if="as==='redit' && ed.res">
+      <div class="adm-hdr fxb"><div><div class="adm-ttl">Kaynak Düzenle</div></div><button class="btn btn-outline" @click="as='res'">← Geri</button></div>
+      <div class="adm-form" style="display:grid;gap:18px;max-width:560px">
+        <div class="g2i">
+          <div class="field"><label class="field-label">Emoji</label><input class="inp" v-model="ed.res.emoji"></div>
+          <div class="field"><label class="field-label">Tür</label><input class="inp" v-model="ed.res.type"></div>
+        </div>
+        <div class="field"><label class="field-label">Ad *</label><input class="inp" v-model="ed.res.name"></div>
+        <div class="field"><label class="field-label">Açıklama</label><textarea class="inp" v-model="ed.res.desc"></textarea></div>
+        <div class="field"><label class="field-label">Yıldız (1-5)</label><input class="inp" type="number" min="1" max="5" v-model="ed.res.stars" style="max-width:100px"></div>
+        <div style="display:flex;gap:12px">
+          <button class="btn btn-primary" @click="saveRes">💾 Kaydet</button>
+          <button class="btn btn-outline" @click="as='res'">İptal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CULTURE LIST -->
+    <div v-if="as==='cul'">
+      <div class="adm-hdr fxb">
+        <div><div class="adm-ttl">Kültür Kartları</div></div>
+        <button class="btn btn-primary" @click="newCul">+ Yeni Kart</button>
+      </div>
+      <table class="adm-tbl">
+        <thead><tr><th>İkon</th><th>Başlık</th><th>İşlem</th></tr></thead>
+        <tbody>
+          <tr v-for="c in st.culture" :key="c.id">
+            <td>{{ c.icon }}</td><td>{{ c.title }}</td>
+            <td><div style="display:flex;gap:6px">
+              <button class="btn btn-ghost btn-sm" @click="editCul(c)">✏️</button>
+              <button class="btn btn-danger btn-sm" @click="delCul(c.id)">🗑️</button>
+            </div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CULTURE EDIT -->
+    <div v-if="as==='cedit' && ed.cul">
+      <div class="adm-hdr fxb"><div><div class="adm-ttl">Kültür Kartı</div></div><button class="btn btn-outline" @click="as='cul'">← Geri</button></div>
+      <div class="adm-form" style="display:grid;gap:18px;max-width:560px">
+        <div class="g2i">
+          <div class="field"><label class="field-label">İkon</label><input class="inp" v-model="ed.cul.icon"></div>
+          <div class="field"><label class="field-label">Başlık *</label><input class="inp" v-model="ed.cul.title"></div>
+        </div>
+        <div class="field"><label class="field-label">Açıklama</label><textarea class="inp" v-model="ed.cul.text"></textarea></div>
+        <div style="display:flex;gap:12px">
+          <button class="btn btn-primary" @click="saveCul">💾 Kaydet</button>
+          <button class="btn btn-outline" @click="as='cul'">İptal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMMENTS -->
+    <div v-if="as==='cmts'">
+      <div class="adm-hdr"><div class="adm-ttl">Yorum Moderasyonu</div><div class="adm-sub">{{ pendCnt }} bekleyen</div></div>
+      <div v-if="st.comments.length===0" style="color:var(--muted);padding:32px;text-align:center;background:var(--card);border:1px solid var(--border);border-radius:var(--rlg)">Henüz yorum yok.</div>
+      <div style="display:grid;gap:12px">
+        <div v-for="c in st.comments" :key="c.id" class="card-flat" style="display:flex;gap:16px;align-items:flex-start">
+          <div class="cav">{{ c.author[0].toUpperCase() }}</div>
+          <div style="flex:1">
+            <div class="fxb">
+              <div>
+                <span style="font-weight:600">{{ c.author }}</span>
+                <span style="font-size:.73rem;color:var(--muted);font-family:var(--fmono);margin-left:8px">{{ c.date }}</span>
+              </div>
+              <span class="chip" :class="c.ok?'chip-green':'chip-yellow'">{{ c.ok?'Onaylı':'Beklemede' }}</span>
+            </div>
+            <div class="ctxt">{{ c.text }}</div>
+            <div style="display:flex;gap:8px;margin-top:10px">
+              <button v-if="!c.ok" class="btn btn-success btn-sm" @click="approveCmt(c.id)">✅ Onayla</button>
+              <button class="btn btn-danger btn-sm" @click="delCmt(c.id)">🗑️ Sil</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRESS -->
+    <div v-if="as==='prog'">
+      <div class="adm-hdr"><div class="adm-ttl">İlerleme Verileri</div></div>
+      <div class="adm-form" style="display:grid;gap:20px;max-width:700px">
+        <div class="g2i">
+          <div class="field"><label class="field-label">Kelime Sayısı</label><input class="inp" type="number" v-model="st.prog.words"></div>
+          <div class="field"><label class="field-label">Çalışma Saati</label><input class="inp" type="number" v-model="st.prog.hours"></div>
+          <div class="field"><label class="field-label">Streak</label><input class="inp" type="number" v-model="st.prog.streak"></div>
+          <div class="field"><label class="field-label">Tamamlanan Seviye</label><input class="inp" type="number" v-model="st.prog.levels"></div>
+        </div>
+        <div style="border-top:1px solid var(--border);padding-top:20px">
+          <div style="font-weight:600;margin-bottom:14px">Beceri Oranları (%)</div>
+          <div class="g2i">
+            <div v-for="s in st.prog.skills" :key="s.name" class="field">
+              <label class="field-label">{{ s.name }}</label>
+              <input class="inp" type="number" min="0" max="100" v-model="s.pct">
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" style="width:fit-content" @click="save('İlerleme')">💾 Kaydet</button>
+      </div>
+    </div>
+
+    <!-- QUIZ ADMIN -->
+    <div v-if="as==='quiz'">
+      <div class="adm-hdr fxb">
+        <div><div class="adm-ttl">Quiz Soruları</div><div class="adm-sub">{{ st.quiz.length }} soru</div></div>
+        <button class="btn btn-primary" @click="newQuiz">+ Yeni Soru</button>
+      </div>
+      <table class="adm-tbl">
+        <thead><tr><th>Soru</th><th>Seviye</th><th>Doğru Cevap</th><th>İşlem</th></tr></thead>
+        <tbody>
+          <tr v-for="q in st.quiz" :key="q.id">
+            <td style="max-width:260px">{{ q.q }}</td>
+            <td><span class="chip chip-muted">{{ q.sub }}</span></td>
+            <td style="color:var(--green);font-weight:600">{{ q.opts[q.ans] }}</td>
+            <td><div style="display:flex;gap:6px">
+              <button class="btn btn-ghost btn-sm" @click="editQuiz(q)">✏️</button>
+              <button class="btn btn-danger btn-sm" @click="delQuiz(q.id)">🗑️</button>
+            </div></td>
+          </tr>
+        </tbody>
+      </table>
+      <div v-if="ed.quiz" class="adm-form" style="margin-top:24px;display:grid;gap:18px">
+        <div style="font-weight:700;font-size:1rem">{{ ed.quiz._new?'Yeni Soru':'Soruyu Düzenle' }}</div>
+        <div class="field"><label class="field-label">Soru *</label><textarea class="inp" v-model="ed.quiz.q"></textarea></div>
+        <div class="field"><label class="field-label">Alt başlık</label><input class="inp" v-model="ed.quiz.sub"></div>
+        <div style="display:grid;gap:10px">
+          <div v-for="(o,oi) in ed.quiz.opts" :key="oi" class="field">
+            <label class="field-label">Şık {{ oi+1 }} <span v-if="oi===ed.quiz.ans" style="color:var(--green)">✓ Doğru</span></label>
+            <div style="display:flex;gap:8px">
+              <input class="inp" v-model="ed.quiz.opts[oi]" style="flex:1">
+              <button class="btn btn-sm" :class="oi===ed.quiz.ans?'btn-success':'btn-outline'" @click="ed.quiz.ans=oi">Doğru</button>
+            </div>
+          </div>
+        </div>
+        <div class="field"><label class="field-label">Açıklama</label><textarea class="inp" v-model="ed.quiz.explain"></textarea></div>
+        <div style="display:flex;gap:12px">
+          <button class="btn btn-primary" @click="saveQuiz">💾 Kaydet</button>
+          <button class="btn btn-outline" @click="ed.quiz=null">İptal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS – Şifre Değiştir -->
+    <div v-if="as==='settings'">
+      <div class="adm-hdr"><div class="adm-ttl">⚙️ Şifre Değiştir</div><div class="adm-sub">Yeni şifren localStorage'a kaydedilir.</div></div>
+      <div class="adm-form" style="max-width:480px;display:grid;gap:18px">
+        <div class="field">
+          <label class="field-label">Mevcut Şifre</label>
+          <input class="inp" :class="{err:pwForm.err&&!pwForm.cur}" type="password" v-model="pwForm.cur" placeholder="••••••••">
+        </div>
+        <div class="field">
+          <label class="field-label">Yeni Şifre</label>
+          <input class="inp" type="password" v-model="pwForm.n1" placeholder="••••••••">
+        </div>
+        <div class="field">
+          <label class="field-label">Yeni Şifre Tekrar</label>
+          <input class="inp" type="password" v-model="pwForm.n2" placeholder="••••••••">
+        </div>
+        <div v-if="pwForm.err" class="field-err">{{ pwForm.err }}</div>
+        <button class="btn btn-primary" style="width:fit-content" @click="changePassword">Şifreyi Güncelle 🔒</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+</div><!-- end #app -->
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.21/vue.global.prod.min.js"></script>
+<script>
+const { createApp, ref, reactive, computed, watch } = Vue;
+
+const LEVELS = {
+  A1: {
+    code:'A1', name:'Başlangıç', cefr:'CEFR A1 – Temel Kullanıcı',
+    statusLabel:'✓ Tamamlandı', statusChip:'chip-green', pct:100,
+    summary:'İspanyolca yolculuğumun başlangıcı. Gündelik hayatta temel iletişim kurmayı öğrendim. Selamlaşmalar, sayılar, renkler ve basit tanışma cümleleri.',
+    topics:[
+      {icon:'👋',title:'Selamlaşma ve Tanışma',desc:'Hola, Buenos días, ¿Cómo te llamas?, Me llamo... gibi temel ifadeler.'},
+      {icon:'🔢',title:'Sayılar ve Zaman',desc:'1-100 arası sayılar, saat sorma-söyleme, günler ve aylar.'},
+      {icon:'🎨',title:'Renkler ve Nesneler',desc:'Temel renk isimleri, sınıf ve ev eşyaları.'},
+      {icon:'👨‍👩‍👧',title:'Aile ve Tanımlamalar',desc:'Aile üyeleri, fiziksel özellikler, ülkeler ve milliyetler.'},
+      {icon:'🛒',title:'Alışveriş ve Yemek',desc:'Kafede sipariş verme, fiyat sorma, sayma.'},
+    ],
+    timeline:[
+      {date:'Ekim 2024',note:'Duolingo ile başladım. İlk hedef: günlük 5 dk.'},
+      {date:'Kasım 2024',note:'Selamlaşmaları öğrendim. İlk İspanyolca cümlemi kurdum!'},
+      {date:'Aralık 2024',note:'A1 tamamlandı. 200 kelime hazinemde var.'},
+    ],
+    skills:['Selamlaşma','Sayılar 1-100','Renkler','Aile','Saat','Günler','Aylar','Yiyecekler','Hayvanlar']
+  },
+  A2: {
+    code:'A2', name:'Temel İletişim', cefr:'CEFR A2 – Temel Kullanıcı',
+    statusLabel:'✓ Tamamlandı', statusChip:'chip-green', pct:100,
+    summary:'Basit cümleleri anlayıp kurmaya başladım. Geçmiş zaman, geniş zaman ve ser/estar farkını öğrendim. İlk gerçek konuşmamı yaptım!',
+    topics:[
+      {icon:'⚖️',title:'Ser vs. Estar',desc:'Kalıcı (ser) ve geçici (estar) özellikler için farklı fiiller. En zor konulardan biri!'},
+      {icon:'🕰️',title:'Pretérito Perfecto',desc:'Yakın geçmiş zaman. He comido, Has viajado... yapıları.'},
+      {icon:'🗺️',title:'Yön Tarifi',desc:'Sola dön, sağa git, düz devam et gibi ifadeler. Şehirde gezinti!'},
+      {icon:'🛍️',title:'Alışveriş Diyalogları',desc:'Fiyat sorma, beğenme/beğenmeme, beden sorma.'},
+      {icon:'💭',title:'Basit Görüşler',desc:'Creo que, me parece que... ile basit fikirler belirtme.'},
+    ],
+    timeline:[
+      {date:'Ocak 2025',note:'Coffee Break Spanish Podcast\'e başladım.'},
+      {date:'Şubat 2025',note:'Ser/Estar için 2 hafta harcadım! Sonunda kavradım.'},
+      {date:'Mart 2025',note:'Tandem\'de ilk konuşma – 20 dakika! Çok heyecanlandım.'},
+      {date:'Nisan 2025',note:'A2 tamamlandı. Artık basit paragraflar okuyabiliyorum.'},
+    ],
+    skills:['Presente','Pretérito perfecto','Ser/Estar','Yön tarifi','Alışveriş','Günlük rutinler','Hobiler','Hava durumu']
+  },
+  B1: {
+    code:'B1', name:'Orta Seviye', cefr:'CEFR B1 – Bağımsız Kullanıcı',
+    statusLabel:'⚡ Şu An Buradayım', statusChip:'chip-yellow', pct:60,
+    summary:'Şu an buradayım! Karmaşık konular hakkında konuşabiliyorum, gerçek İspanyolca içerik tüketiyorum. Subjuntivo ile savaşım sürüyor...',
+    topics:[
+      {icon:'🌀',title:'Subjuntivo (Dilek Kipi)',desc:'Espero que vengas, Quiero que estudies... En zorlu konu ama yavaş yavaş oturuyor.'},
+      {icon:'📰',title:'Gerçek İçerik Tüketimi',desc:'El País haberleri, İspanyolca podcast, La Casa de Papel (altyazıyla).'},
+      {icon:'🗣️',title:'Akıcı Konuşma',desc:'Duraklama olmadan basit konular hakkında konuşabiliyorum.'},
+      {icon:'📝',title:'Koşul Cümleleri',desc:'Si tuviera tiempo... yapısı. Gerçekçi ve hayali koşullar.'},
+      {icon:'🔄',title:'Tüm Geçmiş Zamanlar',desc:'Perfecto, indefinido, imperfecto arasındaki farkı oturtmak.'},
+    ],
+    timeline:[
+      {date:'Mayıs 2025',note:'B1\'e geçiş. Podcast artık çok yavaş geliyor!'},
+      {date:'Haziran 2025',note:'La Casa de Papel\'i İspanyolca altyazıyla izledim.'},
+      {date:'Temmuz 2025',note:'Subjuntivo çalışmaya başladım. Çok zor...'},
+      {date:'Eylül 2025',note:'Her gün 5 İspanyolca cümle yazıyorum. İlerliyorum!'},
+    ],
+    skills:['Subjuntivo','Koşul cümleleri','Pretérito indefinido','Pretérito imperfecto','Podcast anlama','Gazete okuma','Por vs para']
+  },
+  B2: {
+    code:'B2', name:'İleri Orta – Hedef!', cefr:'CEFR B2 – Bağımsız Kullanıcı',
+    statusLabel:'🎯 2026 Hedefi', statusChip:'chip-muted', pct:0,
+    summary:'Buraya ulaşmak için çalışıyorum! DELE B2 sınavına gireceğim. Akıcı konuşma, karmaşık metin anlama ve iş İspanyolcası hedeflerim.',
+    topics:[
+      {icon:'🏆',title:'DELE B2 Sınavı',desc:'2026 yılında resmi DELE B2 sertifikası almayı hedefliyorum.'},
+      {icon:'💼',title:'İş İspanyolcası',desc:'Formal yazışmalar, iş görüşmesi dili, teknik terimler.'},
+      {icon:'📚',title:'Akademik Yazı',desc:'Essay yazma, argüman kurma, eleştirel düşünce aktarımı.'},
+      {icon:'🎭',title:'Kültürel Akıcılık',desc:'Deyimler, argo, kültürel referanslar ve mizahı anlayabilmek.'},
+      {icon:'🎙️',title:'Altyazısız Dizi/Film',desc:'İspanyolca içeriği altyazısız takip edebilmek.'},
+    ],
+    timeline:[],
+    skills:['DELE B2','Akıcı konuşma','Akademik yazı','İş İspanyolcası','Deyimler','Altyazısız dizi']
+  }
+};
+
+const DEF = {
+  hero:{
+    line1:"A1'den B2'ye",
+    line2:"İspanyolca",
+    sub:"Bir Türk öğrencinin İspanyolca öğrenme serüveni. Kelimeler, gramer, kültür ve gerçek deneyimler.",
+    cur:"B1",
+    flags:"🇹🇷 ✦ 🇪🇸",
+    levels:[
+      {label:"A1", status:"done"},
+      {label:"A2", status:"done"},
+      {label:"B1", status:"now"},
+      {label:"B2", status:"goal"}
+    ],
+    buttons:[
+      {label:"Yolculuğu Gör →", style:"btn-primary", page:"roadmap"},
+      {label:"Quiz Dene 🧠",     style:"btn-outline", page:"quiz"},
+      {label:"Günlüğüm 📓",     style:"btn-outline", page:"blog"}
+    ]
+  },
+  vocab:[
+    {id:1,es:"hola",tr:"merhaba",ex:"¡Hola! ¿Cómo estás?",level:"A1",cat:"günlük"},
+    {id:2,es:"gracias",tr:"teşekkürler",ex:"Muchas gracias por tu ayuda.",level:"A1",cat:"günlük"},
+    {id:3,es:"por favor",tr:"lütfen",ex:"Un café, por favor.",level:"A1",cat:"günlük"},
+    {id:4,es:"lo siento",tr:"özür dilerim",ex:"Lo siento, no entiendo.",level:"A1",cat:"günlük"},
+    {id:5,es:"querer",tr:"istemek/sevmek",ex:"Quiero aprender español.",level:"A1",cat:"A1"},
+    {id:6,es:"también",tr:"de, aynı zamanda",ex:"Yo también estudio inglés.",level:"A2",cat:"A2"},
+    {id:7,es:"aunque",tr:"her ne kadar...da",ex:"Aunque es difícil, lo intento.",level:"B1",cat:"B1"},
+    {id:8,es:"sin embargo",tr:"bununla birlikte",ex:"Es caro; sin embargo, vale la pena.",level:"B1",cat:"B1"},
+    {id:9,es:"alegría",tr:"sevinç, neşe",ex:"Siento mucha alegría hoy.",level:"A2",cat:"duygu"},
+    {id:10,es:"tristeza",tr:"üzüntü",ex:"La tristeza pasará pronto.",level:"A2",cat:"duygu"},
+    {id:11,es:"orgullo",tr:"gurur",ex:"Siento orgullo de mi progreso.",level:"B1",cat:"duygu"},
+    {id:12,es:"la contraseña",tr:"şifre",ex:"Olvidé la contraseña.",level:"A2",cat:"teknoloji"},
+    {id:13,es:"la ciberseguridad",tr:"siber güvenlik",ex:"Estudio ciberseguridad.",level:"B1",cat:"teknoloji"},
+    {id:14,es:"la inteligencia artificial",tr:"yapay zeka",ex:"La IA cambia el mundo.",level:"B1",cat:"teknoloji"},
+  ],
+  grammar:[
+    {id:1,icon:"⚖️",title:"Ser vs. Estar",desc:"İspanyolca'nın en zor konusu! Ser kalıcı, Estar geçici özellikler için.",ex:"Soy *turca*. (kalıcı)\nEstoy *cansada*. (geçici)",level:"A2"},
+    {id:2,icon:"🕰️",title:"Geçmiş Zamanlar",desc:"Pretérito perfecto vs indefinido.",ex:"He *comido* hoy. (bugün)\n*Comí* ayer. (dün)",level:"A2"},
+    {id:3,icon:"🌀",title:"Subjuntivo",desc:"Dilek, şüphe, duygu için. B1'in en zorlu konusu!",ex:"Espero que *vengas*.\nQuiero que *estudies*.",level:"B1"},
+    {id:4,icon:"🔄",title:"Reflexive Fiiller",desc:"Kişinin kendi üzerindeki eylemi.",ex:"*Me llamo* Meryem.\n*Me levanto* a las 7.",level:"A1"},
+    {id:5,icon:"❓",title:"Por vs. Para",desc:"'İçin' anlamına gelen iki edat.",ex:"Estudio *para* aprender.\nGracias *por* tu ayuda.",level:"A2"},
+    {id:6,icon:"📐",title:"Koşul Cümleleri",desc:"Si (eğer) cümleleri.",ex:"Si *tengo* tiempo, *estudiaré*.\nSi *tuviera* dinero, *viajaría*.",level:"B1"},
+  ],
+  blogs:[
+    {id:1,date:"15 Ocak 2025",level:"A1",emoji:"🌱",title:"İlk 'Hola'mdan Bu Yana",excerpt:"Duolingo'yu ilk açtığımda sadece eğlencesine başlamıştım.",full:"Duolingo'yu ilk açtığımda sadece eğlencesine başlamıştım. Şimdi baktım, 3 aydır kesintisiz devam ediyorum.\n\nİlk hedefim sadece selamlaşmayı öğrenmekti. Artık 'Hola' ve '¿Cómo estás?' diyebiliyorum. Küçük bir zafer!",pub:true},
+    {id:2,date:"3 Mart 2025",level:"A2",emoji:"😅",title:"Ser ve Estar Beni Delirtti",excerpt:"Bu iki fiil için tam 2 hafta harcadım.",full:"'Estar' ve 'ser' farkını anlamak için tam 2 hafta harcadım. Türkçe'de ikisi de 'olmak' diye çevriliyor.\n\nSer kalıcı özellikler için, Estar geçici durumlar için. En çok kafamı karıştıran: 'estar muerto' – ölüm kalıcı değil mi? 😅",pub:true},
+    {id:3,date:"20 Mayıs 2025",level:"A2",emoji:"🎉",title:"İlk Gerçek Konuşmam",excerpt:"Tandem'de Madrilli biriyle 20 dakika konuştum!",full:"Tandem uygulamasında Madrilli bir kız ile 20 dakika konuştum! Çok yavaş konuştu benim için.\n\nO 20 dakika aylar süren çalışmadan daha değerliydi. 'Tío/tía' kelimesine en çok takıldım!",pub:true},
+    {id:4,date:"8 Temmuz 2025",level:"B1",emoji:"📺",title:"La Casa de Papel İspanyolca Altyazıyla",excerpt:"Türkçe altyazısız izledim ve epey anladım!",full:"Türkçe altyazısız izledim ve epey anladım! Kızgın sahnelerde konuşulanlar daha hızlı geliyor ama context'ten çıkarabiliyorum artık.",pub:true},
+    {id:5,date:"2 Eylül 2025",level:"B1",emoji:"🌀",title:"Subjuntivo ile Savaşım",excerpt:"Bu zaman kipi benim kâbusum.",full:"Bu zaman kipi benim kâbusum. Türkçe'de direkt karşılığı yok.\n\n'Espero que vengas' – Neden 'vengas'? Gerçekleşip gerçekleşmeyeceği belli değil. Bu mantığı kavramak zaman aldı.",pub:true},
+    {id:6,date:"1 Kasım 2025",level:"B1",emoji:"🎯",title:"DELE B2 Hedefim",excerpt:"2026 yılında DELE B2 sınavına gireceğim.",full:"2026 yılında DELE B2 sınavına gireceğim. Çok mu iddialı? Belki.\n\n'Si quieres puedes' – istersen yapabilirsin!",pub:true},
+  ],
+  resources:[
+    {id:1,emoji:"🦜",type:"Uygulama",name:"Duolingo",desc:"Başlangıç için mükemmel. A1-A2 için ideal.",stars:4},
+    {id:2,emoji:"🎧",type:"Podcast",name:"Coffee Break Spanish",desc:"Yavaş ve net İspanyolca.",stars:5},
+    {id:3,emoji:"📚",type:"Kitap",name:"Aula Internacional",desc:"A1'den B2'ye ders kitabı serisi.",stars:5},
+    {id:4,emoji:"🎬",type:"Dizi",name:"La Casa de Papel",desc:"İspanyolca altyazıyla. B1+ için şart!",stars:5},
+    {id:5,emoji:"🃏",type:"Uygulama",name:"Anki",desc:"Spaced repetition. En etkili kelime yöntemi.",stars:5},
+    {id:6,emoji:"🗣️",type:"Uygulama",name:"Tandem",desc:"Gerçek konuşanlarla dil takası.",stars:4},
+    {id:7,emoji:"📰",type:"Web",name:"El País",desc:"Güncel haberler İspanyolca.",stars:4},
+    {id:8,emoji:"🤖",type:"AI",name:"ChatGPT Pratik",desc:"7/24 hata düzeltici.",stars:5},
+  ],
+  culture:[
+    {id:1,icon:"🍽️",title:"La Sobremesa",text:"Yemekten sonra saatlerce masada oturup sohbet etme."},
+    {id:2,icon:"😴",title:"La Siesta",text:"Öğlen uykusu. Hayatın ritmi farklı!"},
+    {id:3,icon:"🕐",title:"Geç Yemek Saatleri",text:"Akşam yemeği saat 21-22'de normal."},
+    {id:4,icon:"💃",title:"El Flamenco",text:"Sadece dans değil, derin bir kültürel ifade biçimi."},
+    {id:5,icon:"🏟️",title:"El Fútbol",text:"Futbol bir din gibi. Real Madrid vs Barcelona!"},
+    {id:6,icon:"🎭",title:"El Día de Muertos",text:"Latin Amerika'da renkli ölüleri anma festivali."},
+  ],
+  comments:[
+    {id:1,pid:1,author:"Ayşe K.",text:"Bu yolculuk çok ilham verici!",date:"2025-01-20",ok:true},
+    {id:2,pid:2,author:"Mehmet Y.",text:"Estar muerto konusu beni de zorladı!",date:"2025-03-10",ok:true},
+  ],
+  messages:[],
+  prog:{
+    words:847,hours:312,streak:180,levels:3,
+    skills:[
+      {name:"📖 Okuma",pct:75},{name:"🎧 Dinleme",pct:65},
+      {name:"✍️ Yazma",pct:70},{name:"🗣️ Konuşma",pct:50},
+      {name:"📝 Gramer",pct:68},{name:"🎤 Telaffuz",pct:72},
+    ]
+  },
+  quiz:[
+    {id:1,q:"¿Cómo se dice 'teşekkür ederim'?",sub:"A1",opts:["Lo siento","Gracias","Por favor","De nada"],ans:1,explain:"'Gracias' teşekkür ederim demektir."},
+    {id:2,q:"Hangi cümle doğrudur?",sub:"Ser/Estar – A2",opts:["Estoy turca.","Soy cansada.","Soy turca.","Estoy doctora."],ans:2,explain:"Milliyetler kalıcı → 'ser' kullanılır."},
+    {id:3,q:"'Ayer fui al cine' – hangi zaman?",sub:"A2-B1",opts:["Presente","Pretérito imperfecto","Pretérito perfecto","Pretérito indefinido"],ans:3,explain:"'Ayer' (dün) → indefinido."},
+    {id:4,q:"'Espero que ___ bien.'",sub:"Subjuntivo – B1",opts:["estás","eres","estés","seas"],ans:2,explain:"'Esperar que' → subjuntivo. Estar → estés."},
+    {id:5,q:"'Ciberseguridad' ne anlama gelir?",sub:"Teknoloji – B1",opts:["Siber saldırı","Siber güvenlik","Bilgisayar bilimi","Ağ teknolojisi"],ans:1,explain:"Ciberseguridad = siber güvenlik."},
+  ],
+  adminPw: 'meryem2025'
+};
+
+function loadSt() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('espa_v3'));
+    if (!saved) return JSON.parse(JSON.stringify(DEF));
+    // Migrate hero if missing new fields
+    if (!saved.hero) saved.hero = JSON.parse(JSON.stringify(DEF.hero));
+    if (!saved.hero.flags)   saved.hero.flags   = DEF.hero.flags;
+    if (!saved.hero.levels)  saved.hero.levels  = JSON.parse(JSON.stringify(DEF.hero.levels));
+    if (!saved.hero.buttons) saved.hero.buttons = JSON.parse(JSON.stringify(DEF.hero.buttons));
+    return saved;
+  } catch { return JSON.parse(JSON.stringify(DEF)); }
+}
+function saveSt(d) { try { localStorage.setItem('espa_v3', JSON.stringify(d)); } catch(e){} }
+
+createApp({
+  setup() {
+    const st = reactive(loadSt());
+    if (!st.messages) st.messages = [];
+    if (!st.adminPw) st.adminPw = 'meryem2025';
+    watch(st, v => saveSt(v), {deep:true});
+
+    const pg = ref('home');
+    const as = ref('dash');
+    const isAdmin = ref(false);
+
+    // LOGIN
+    const loginPw = ref('');
+    const loginErr = ref('');
+    const loginStep = ref('pw');
+    const resetCode = ref('');
+    const resetCodeInput = ref('');
+    const resetCodeDisplay = ref('');
+    const newPw = ref('');
+    const newPw2 = ref('');
+    const resetErr = ref('');
+
+    function go(p) { pg.value = p; window.scrollTo(0,0); }
+    function logout() { isAdmin.value = false; go('home'); }
+
+    function doLogin() {
+      if (loginPw.value === st.adminPw) {
+        isAdmin.value = true; loginErr.value = ''; loginPw.value = ''; loginStep.value = 'pw'; go('admin');
+      } else { loginErr.value = 'Yanlış şifre!'; }
+    }
+
+    function sendResetCode() {
+      const code = Math.floor(100000 + Math.random() * 900000).toString();
+      resetCode.value = code;
+      resetCodeDisplay.value = code;
+      resetCodeInput.value = '';
+      newPw.value = ''; newPw2.value = '';
+      resetErr.value = '';
+      loginStep.value = 'reset-code';
+      toast('Kod oluşturuldu! (Demo: kod ekranda gösteriliyor)', 'info');
+    }
+
+    function doResetPw() {
+      resetErr.value = '';
+      if (resetCodeInput.value !== resetCode.value) { resetErr.value = 'Kod yanlış!'; return; }
+      if (!newPw.value || newPw.value.length < 6) { resetErr.value = 'Şifre en az 6 karakter olmalı!'; return; }
+      if (newPw.value !== newPw2.value) { resetErr.value = 'Şifreler eşleşmiyor!'; return; }
+      st.adminPw = newPw.value;
+      loginStep.value = 'pw';
+      toast('Şifre güncellendi! Yeni şifrenizle giriş yapın. ✅', 'success');
+    }
+
+    // TOASTS
+    const toasts = ref([]);
+    function toast(msg, type='success') {
+      const icons = {success:'✅',error:'❌',info:'ℹ️'};
+      const id = Date.now() + Math.random();
+      toasts.value.push({id, msg, type, icon: icons[type]||'ℹ️'});
+      setTimeout(() => { toasts.value = toasts.value.filter(t => t.id!==id); }, 3500);
+    }
+    function save(what) { toast(what + ' kaydedildi!'); }
+
+    // MODAL
+    const modal = reactive({open:false, type:'', b:null, lvl:null});
+    function openBlogModal(b) { modal.b = b; modal.type = 'blog'; modal.open = true; cform.author=''; cform.text=''; cform.error=''; }
+    function openLevelModal(code) { const lvl = LEVELS[code]; if (!lvl) return; modal.lvl = lvl; modal.type = 'level'; modal.open = true; }
+    function closeModal() { modal.open = false; modal.lvl = null; modal.b = null; modal.type = ''; }
+
+    // VOCAB
+    const vfilter = ref('all');
+    const flipped = ref(new Set());
+    function flipCard(id) { const s = new Set(flipped.value); s.has(id)?s.delete(id):s.add(id); flipped.value=s; }
+    const vcats = computed(() => { const a = new Set(['all']); st.vocab.forEach(v => { a.add(v.level); a.add(v.cat); }); return [...a]; });
+    const filtVocab = computed(() => vfilter.value==='all' ? st.vocab : st.vocab.filter(v=>v.level===vfilter.value||v.cat===vfilter.value));
+
+    // QUIZ
+    const qz = reactive({i:0,score:0,answered:false,chosen:-1,done:false});
+    function qAnswer(idx) { if(qz.answered)return; qz.answered=true; qz.chosen=idx; if(idx===st.quiz[qz.i].ans)qz.score++; }
+    function qNext() { qz.i++; if(qz.i>=st.quiz.length){qz.done=true;}else{qz.answered=false;qz.chosen=-1;} }
+    function qRestart() { qz.i=0;qz.score=0;qz.answered=false;qz.chosen=-1;qz.done=false; }
+    const qMsg = computed(() => { const r=qz.score/st.quiz.length; if(r===1)return '¡Perfecto! 🏆'; if(r>=.8)return '¡Muy bien! 🌟'; if(r>=.6)return 'İyi gidiyorsun! 📈'; return 'Devam et! 💪'; });
+
+    // COMMENTS
+    const cform = reactive({author:'',text:'',error:''});
+    function submitComment(pid) {
+      if(!cform.author.trim()){cform.error='İsim zorunlu!';return;}
+      if(!cform.text.trim()){cform.error='Yorum boş olamaz!';return;}
+      st.comments.push({id:Date.now(),pid,author:cform.author,text:cform.text,date:new Date().toISOString().split('T')[0],ok:false});
+      cform.author='';cform.text='';cform.error='';
+      toast('Yorumunuz incelemeye alındı!');
+    }
+    function commentsFor(id) { return st.comments.filter(c=>c.pid===id&&c.ok); }
+    const pubBlogs = computed(() => st.blogs.filter(b=>b.pub));
+
+    // CONTACT → admin inbox
+    const ctf = reactive({name:'',email:'',subject:'',msg:'',sent:false,err:''});
+    function sendContact() {
+      ctf.err = '';
+      if(!ctf.name.trim()||!ctf.email.trim()||!ctf.msg.trim()){ctf.err='Ad, e-posta ve mesaj zorunlu!';return;}
+      const now = new Date();
+      st.messages.push({
+        id:Date.now(), name:ctf.name, email:ctf.email,
+        subject:ctf.subject||'—', msg:ctf.msg,
+        date:now.toLocaleDateString('tr'), time:now.toLocaleTimeString('tr',{hour:'2-digit',minute:'2-digit'}),
+        read:false
+      });
+      ctf.sent=true; ctf.name='';ctf.email='';ctf.subject='';ctf.msg='';
+      toast('Mesajınız iletildi! Teşekkürler 💌');
+      setTimeout(()=>{ctf.sent=false;},3000);
+    }
+
+    // INBOX
+    const unreadMsgs = computed(() => st.messages.filter(m=>!m.read).length);
+    function markRead(id) { const m=st.messages.find(m=>m.id===id); if(m)m.read=true; }
+    function markAllRead() { st.messages.forEach(m=>m.read=true); toast('Tümü okundu işaretlendi.','info'); }
+    function deleteMsg(id) { st.messages=st.messages.filter(m=>m.id!==id); toast('Mesaj silindi.','info'); }
+
+    // PENDING
+    const pendCnt = computed(() => st.comments.filter(c=>!c.ok).length);
+
+    // EDIT STATE
+    const ed = reactive({blog:null,vocab:null,gram:null,res:null,cul:null,quiz:null});
+
+    // PASSWORD CHANGE (admin panel)
+    const pwForm = reactive({cur:'',n1:'',n2:'',err:''});
+    function changePassword() {
+      pwForm.err='';
+      if(pwForm.cur!==st.adminPw){pwForm.err='Mevcut şifre yanlış!';return;}
+      if(!pwForm.n1||pwForm.n1.length<6){pwForm.err='Yeni şifre en az 6 karakter olmalı!';return;}
+      if(pwForm.n1!==pwForm.n2){pwForm.err='Yeni şifreler eşleşmiyor!';return;}
+      st.adminPw=pwForm.n1; pwForm.cur='';pwForm.n1='';pwForm.n2='';
+      toast('Şifre başarıyla güncellendi! 🔒');
+    }
+
+    // SITE IN NEW TAB (admin sidebar)
+    function openSiteInNewTab() {
+      isAdmin.value = false;
+      pg.value = 'home';
+    }
+
+    // BLOG CRUD
+    function newBlog(){ed.blog={id:Date.now(),date:new Date().toLocaleDateString('tr'),level:'B1',emoji:'✍️',title:'',excerpt:'',full:'',pub:false,_new:true};as.value='bedit';}
+    function editBlog(b){ed.blog={...b};as.value='bedit';}
+    function saveBlog(){
+      if(!ed.blog.title||!ed.blog.full){toast('Başlık ve içerik zorunlu!','error');return;}
+      const i=st.blogs.findIndex(b=>b.id===ed.blog.id);
+      const {_new,...clean}=ed.blog;
+      if(i>-1)st.blogs[i]={...clean};else st.blogs.push({...clean});
+      ed.blog=null;as.value='blogs';toast('Yazı kaydedildi!');
+    }
+    function delBlog(id){if(!confirm('Silmek istediğinden emin misin?'))return;st.blogs=st.blogs.filter(b=>b.id!==id);toast('Yazı silindi.','info');}
+
+    // VOCAB CRUD
+    function newVocab(){ed.vocab={id:Date.now(),es:'',tr:'',ex:'',level:'A1',cat:'günlük',_new:true};as.value='vedit';}
+    function editVocab(v){ed.vocab={...v};as.value='vedit';}
+    function saveVocab(){
+      if(!ed.vocab.es||!ed.vocab.tr){toast('İspanyolca ve Türkçe zorunlu!','error');return;}
+      const i=st.vocab.findIndex(v=>v.id===ed.vocab.id);
+      const {_new,...clean}=ed.vocab;
+      if(i>-1)st.vocab[i]={...clean};else st.vocab.push({...clean});
+      ed.vocab=null;as.value='vocab';toast('Kelime kaydedildi!');
+    }
+    function delVocab(id){if(!confirm('Silinsin mi?'))return;st.vocab=st.vocab.filter(v=>v.id!==id);toast('Kelime silindi.','info');}
+
+    // GRAMMAR CRUD
+    function newGram(){ed.gram={id:Date.now(),icon:'📝',title:'',desc:'',ex:'',level:'A1',_new:true};as.value='gedit';}
+    function editGram(g){ed.gram={...g};as.value='gedit';}
+    function saveGram(){
+      if(!ed.gram.title){toast('Başlık zorunlu!','error');return;}
+      const i=st.grammar.findIndex(g=>g.id===ed.gram.id);
+      const {_new,...clean}=ed.gram;
+      if(i>-1)st.grammar[i]={...clean};else st.grammar.push({...clean});
+      ed.gram=null;as.value='gram';toast('Gramer notu kaydedildi!');
+    }
+    function delGram(id){st.grammar=st.grammar.filter(g=>g.id!==id);toast('Silindi.','info');}
+
+    // RESOURCE CRUD
+    function newRes(){ed.res={id:Date.now(),emoji:'🔗',type:'Web',name:'',desc:'',stars:4,_new:true};as.value='redit';}
+    function editRes(r){ed.res={...r};as.value='redit';}
+    function saveRes(){
+      if(!ed.res.name){toast('Ad zorunlu!','error');return;}
+      const i=st.resources.findIndex(r=>r.id===ed.res.id);
+      const {_new,...clean}=ed.res;
+      if(i>-1)st.resources[i]={...clean};else st.resources.push({...clean});
+      ed.res=null;as.value='res';toast('Kaynak kaydedildi!');
+    }
+    function delRes(id){st.resources=st.resources.filter(r=>r.id!==id);toast('Silindi.','info');}
+
+    // CULTURE CRUD
+    function newCul(){ed.cul={id:Date.now(),icon:'🌍',title:'',text:'',_new:true};as.value='cedit';}
+    function editCul(c){ed.cul={...c};as.value='cedit';}
+    function saveCul(){
+      if(!ed.cul.title){toast('Başlık zorunlu!','error');return;}
+      const i=st.culture.findIndex(c=>c.id===ed.cul.id);
+      const {_new,...clean}=ed.cul;
+      if(i>-1)st.culture[i]={...clean};else st.culture.push({...clean});
+      ed.cul=null;as.value='cul';toast('Kültür kartı kaydedildi!');
+    }
+    function delCul(id){st.culture=st.culture.filter(c=>c.id!==id);toast('Silindi.','info');}
+
+    // QUIZ CRUD
+    function newQuiz(){ed.quiz={id:Date.now(),q:'',sub:'A1',opts:['','','',''],ans:0,explain:'',_new:true};}
+    function editQuiz(q){ed.quiz={...q,opts:[...q.opts]};}
+    function saveQuiz(){
+      if(!ed.quiz.q){toast('Soru metni zorunlu!','error');return;}
+      const i=st.quiz.findIndex(q=>q.id===ed.quiz.id);
+      const {_new,...clean}=ed.quiz;
+      if(i>-1)st.quiz[i]={...clean};else st.quiz.push({...clean});
+      ed.quiz=null;toast('Soru kaydedildi!');
+    }
+    function delQuiz(id){st.quiz=st.quiz.filter(q=>q.id!==id);toast('Soru silindi.','info');}
+
+    // COMMENT MODERATION
+    function approveCmt(id){const c=st.comments.find(c=>c.id===id);if(c){c.ok=true;toast('Yorum onaylandı!');}}
+    function delCmt(id){st.comments=st.comments.filter(c=>c.id!==id);toast('Yorum silindi.','info');}
+
+    return {
+      st,pg,go,as,isAdmin,logout,
+      loginPw,loginErr,loginStep,doLogin,
+      resetCode,resetCodeInput,resetCodeDisplay,newPw,newPw2,resetErr,sendResetCode,doResetPw,
+      toasts,toast,save,
+      modal,openBlogModal,openLevelModal,closeModal,
+      vfilter,vcats,filtVocab,flipped,flipCard,
+      qz,qAnswer,qNext,qRestart,qMsg,
+      cform,submitComment,commentsFor,pubBlogs,
+      ctf,sendContact,
+      unreadMsgs,markRead,markAllRead,deleteMsg,
+      pendCnt,ed,
+      openSiteInNewTab,
+      pwForm,changePassword,
+      newBlog,editBlog,saveBlog,delBlog,
+      newVocab,editVocab,saveVocab,delVocab,
+      newGram,editGram,saveGram,delGram,
+      newRes,editRes,saveRes,delRes,
+      newCul,editCul,saveCul,delCul,
+      newQuiz,editQuiz,saveQuiz,delQuiz,
+      approveCmt,delCmt,
+          }
+  }
+}).mount('#app');
+</script>
+</body>
+</html>
